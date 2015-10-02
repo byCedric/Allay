@@ -14,10 +14,18 @@ namespace ByCedric\Allay\Contracts\Exceptions;
 interface Handler
 {
     /**
-     * Handle the given exception to return a valid response.
+     * Determine if the handler is capable of handling the given exception.
      *
      * @param  \Exception $error
+     * @return boolean
+     */
+    public function capable(\Exception $error);
+
+    /**
+     * Handle the given exception to return a valid response.
+     *
+     * @param  mixed $error
      * @return \Illuminate\Http\Response
      */
-    public function handle(\Exception $error);
+    public function handle($error);
 }

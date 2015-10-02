@@ -14,21 +14,20 @@ namespace ByCedric\Allay\Contracts\Exceptions;
 interface Manager
 {
     /**
-     * Register a handler for the given exception type.
+     * Register a new handler, that is capable of converting exceptions to responses.
      *
-     * @param  string                                       $type
      * @param  \ByCedric\Allay\Contracts\Exceptions\Handler $handler
      * @return void
      */
-    public function register($type, Handler $handler);
+    public function register(Handler $handler);
 
     /**
-     * Determine if the given exception has a handler registered.
+     * Determine if the given exception manager is capable of handling the exception.
      *
-     * @param  \Exception $type
+     * @param  \Exception $error
      * @return boolean
      */
-    public function registered($type);
+    public function capable(\Exception $error);
 
     /**
      * Handle the given exception to return a valid response.
