@@ -51,32 +51,22 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Assert if the array has all provided keys.
+     * Call protected method that can't be called otherwise.
      *
-     * @param  array  $keys
-     * @param  mixed  $array
-     * @param  string $message (default: '')
-     * @return void
+     * @param  object &$instance
+     * @param  string $method
+     * @param  array  $params
+     * @return mixed
      */
-    public function assertArrayHasKeys(array $keys, $array, $message = '')
+    public function callProtectedMethod(&$instance, $method, array $params = [])
     {
-        foreach ($keys as $key) {
-            $this->assertArrayHasKey($key, $array, $message);
-        }
-    }
+        $reflection = new \ReflectionMethod(get_class($instance), $method);
+        $reflection->setAccessible(true);
 
-    /**
-     * Assert if the array has none of the provided keys.
-     *
-     * @param  array  $keys
-     * @param  mixed  $array
-     * @param  string $message (default: '')
-     * @return void
-     */
-    public function assertArrayNotHasKeys(array $keys, $array, $message = '')
-    {
-        foreach ($keys as $key) {
-            $this->assertArrayNotHasKey($key, $array, $message);
+        if (!empty($params)) {
+            return $reflection->invokeArgs($instance, $params);
         }
+
+        return $reflection->invoke($instance);
     }
 }
