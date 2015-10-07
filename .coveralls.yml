@@ -1,0 +1,6 @@
+# General
+service_name: travis-ci
+
+# PHP specific
+src_dir: src
+coverage_clover: build/logs/clover.xml
