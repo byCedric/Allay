@@ -23,4 +23,4 @@ script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - vendor/bin/test-reporter
+  - vendor/bin/coveralls
