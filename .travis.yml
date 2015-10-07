@@ -20,7 +20,7 @@ before_script:
   - travis_retry composer update --no-interaction --prefer-source
 
 script:
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+  - vendor/bin/phpunit
 
 after_script:
   - vendor/bin/coveralls
