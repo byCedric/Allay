@@ -27,6 +27,7 @@ class AgnosticServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working agnostic service provider instance.
      *
+     * @param  \Illuminate\Contracts\Foundation\Application $app
      * @return \ByCedric\Allay\Providers\AgnosticServiceProvider
      */
     public function getInstance(Application $app = null)

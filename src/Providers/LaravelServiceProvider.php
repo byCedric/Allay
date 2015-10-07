@@ -35,6 +35,17 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     }
 
     /**
+     * Get the project's configuration path, to `publish` the configuration file to.
+     *
+     * @param  string $path
+     * @return string
+     */
+    protected function getConfigPath($path = '')
+    {
+        return $this->app->make('path.config') . ($path ? DIRECTORY_SEPARATOR . $path : '');
+    }
+
+    /**
      * Bootstrap the application services.
      *
      * @return void
@@ -42,7 +53,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     public function boot()
     {
         $this->publishes([
-            self::CONFIG_FILE => config_path('allay.php'),
+            self::CONFIG_FILE => $this->getConfigPath('allay.php'),
         ]);
 
         $this->populateExceptionManager();

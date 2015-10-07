@@ -30,10 +30,10 @@ class ResourceNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Ha
     /**
      * Handle the given exception to return a valid response.
      *
-     * @param  mixed $error
+     * @param  \Exception $error
      * @return \Illuminate\Http\Response
      */
-    public function handle($error)
+    public function handle(\Exception $error)
     {
         return new Response([
             'detail' => "The (requested) resource \"{$error->getResource()}\" was not found.",

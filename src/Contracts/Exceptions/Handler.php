@@ -24,8 +24,8 @@ interface Handler
     /**
      * Handle the given exception to return a valid response.
      *
-     * @param  mixed $error
+     * @param  \Exception $error
      * @return \Illuminate\Http\Response
      */
-    public function handle($error);
+    public function handle(\Exception $error);
 }
