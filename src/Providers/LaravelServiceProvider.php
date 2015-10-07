@@ -17,13 +17,6 @@ use Illuminate\Routing\Router;
 class LaravelServiceProvider extends AgnosticServiceProvider
 {
     /**
-     * The configuration path to use.
-     *
-     * @var string
-     */
-    const CONFIG_FILE = __DIR__ . '/../config.php';
-
-    /**
      * Get the config value for the provided key.
      *
      * @param  string $key
@@ -32,6 +25,16 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     protected function getConfig($key)
     {
         return $this->app->make(Repository::class)->get($key);
+    }
+
+    /**
+     * Get the package's configuration file.
+     *
+     * @return string
+     */
+    protected function getConfigFile()
+    {
+        return __DIR__ . '/../config.php';
     }
 
     /**
@@ -53,7 +56,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     public function boot()
     {
         $this->publishes([
-            self::CONFIG_FILE => $this->getConfigPath('allay.php'),
+            $this->getConfigFile() => $this->getConfigPath('allay.php'),
         ]);
 
         $this->populateExceptionManager();
@@ -86,7 +89,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(self::CONFIG_FILE, 'allay');
+        $this->mergeConfigFrom($this->getConfigFile(), 'allay');
 
         $this->registerExceptionManager();
         $this->registerResourceManager();
