@@ -13,7 +13,6 @@ namespace ByCedric\Allay\Tests\Exceptions\Handlers;
 
 use ByCedric\Allay\Exceptions\Handlers\ResourceNotFoundHandler;
 use ByCedric\Allay\Exceptions\ResourceNotFoundException;
-use Mockery;
 
 class ResourceNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTestCase
 {
@@ -31,7 +30,7 @@ class ResourceNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHan
     {
         $this->assertIsCapable(
             $this->getInstance(),
-            Mockery::mock(ResourceNotFoundException::class),
+            new ResourceNotFoundException('test'),
             'Handler was not capable of handling designated exception.'
         );
     }
@@ -40,18 +39,18 @@ class ResourceNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHan
     {
         $this->assertIsNotCapable(
             $this->getInstance(),
-            Mockery::mock(\RuntimeException::class),
+            new \RuntimeException,
             'Handler was capable of "strange" exception.'
         );
     }
 
     public function testHandleReturnsResponseWithCorrectStatus()
     {
-        $error = Mockery::mock(ResourceNotFoundException::class);
-        $error->shouldReceive('getResource')
-            ->atLeast()->once()
-            ->andReturn('test');
-
-        $this->assertHandlesToResponse($this->getInstance(), $error, 404, 'Handler returned a malformed response.');
+        $this->assertHandlesToResponse(
+            $this->getInstance(),
+            new ResourceNotFoundException('test'),
+            404,
+            'Handler returned a malformed response.'
+        );
     }
 }

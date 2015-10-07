@@ -13,7 +13,6 @@ namespace ByCedric\Allay\Tests\Exceptions\Handlers;
 
 use ByCedric\Allay\Exceptions\Handlers\ModelNotFoundHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Mockery;
 
 class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTestCase
 {
@@ -31,7 +30,7 @@ class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandle
     {
         $this->assertIsCapable(
             $this->getInstance(),
-            Mockery::mock(ModelNotFoundException::class),
+            new ModelNotFoundException,
             'Handler was not capable of handling designated exception.'
         );
     }
@@ -40,18 +39,18 @@ class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandle
     {
         $this->assertIsNotCapable(
             $this->getInstance(),
-            Mockery::mock(\InvalidArgumentException::class),
+            new \InvalidArgumentException,
             'Handler was capable of "strange" exception.'
         );
     }
 
     public function testHandleReturnsResponseWithCorrectStatus()
     {
-        $error = Mockery::mock(ModelNotFoundException::class);
-        $error->shouldReceive('getModel')
-            ->atLeast()->once()
-            ->andReturn('test');
-
-        $this->assertHandlesToResponse($this->getInstance(), $error, 404, 'Handler returned a malformed response.');
+        $this->assertHandlesToResponse(
+            $this->getInstance(),
+            new ModelNotFoundException,
+            404,
+            'Handler returned a malformed response.'
+        );
     }
 }
