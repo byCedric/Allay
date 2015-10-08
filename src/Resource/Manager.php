@@ -42,24 +42,24 @@ class Manager implements \ByCedric\Allay\Contracts\Resource\Manager
     }
 
     /**
-     * Register a binding within the resource manager.
+     * Register a new resource within the resource manager.
      *
      * @param  string $name
      * @param  string $class
      * @return void
      */
-    public function bind($name, $class)
+    public function register($name, $class)
     {
         $this->resources[$name] = $class;
     }
 
     /**
-     * Determine if the given resource name has been bound.
+     * Determine if the given resource name has been registered.
      *
      * @param  string $name
      * @return boolean
      */
-    public function bound($name)
+    public function contains($name)
     {
         return isset($this->resources[$name]);
     }
@@ -73,7 +73,7 @@ class Manager implements \ByCedric\Allay\Contracts\Resource\Manager
      */
     public function make($name)
     {
-        if ($this->bound($name)) {
+        if ($this->contains($name)) {
             return $this->container->make($this->resources[$name]);
         }
 

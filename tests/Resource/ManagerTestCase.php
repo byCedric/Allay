@@ -35,22 +35,25 @@ class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase
         return new Manager($container);
     }
 
-    public function testBoundDetectsBinding()
+    public function testContainsDetectsRegisteredResources()
     {
         $manager = $this->getInstance();
-        $manager->bind('test', Resource::class);
+        $manager->register('test', Resource::class);
 
-        $this->assertTrue($manager->bound('test'), 'Binding was not detected by bound.');
-        $this->assertFalse($manager->bound('nope'), 'Bound magically returned true without binding.');
+        $this->assertTrue($manager->contains('test'), 'Registered resource was not detected by contains.');
+        $this->assertFalse($manager->contains('nope'), 'Contains magically returned true without register.');
     }
 
-    public function testMakeReturnsInstanceOfTheBinding()
+    public function testMakeReturnsInstanceOfTheRegisteredResource()
     {
         $container = Mockery::mock(Container::class);
-        $container->shouldReceive('make')->with(Resource::class)->once()->andReturn(new Resource);
+        $container->shouldReceive('make')
+            ->once()
+            ->with(Resource::class)
+            ->andReturn(new Resource);
 
         $manager = $this->getInstance($container);
-        $manager->bind('test', Resource::class);
+        $manager->register('test', Resource::class);
 
         $this->assertInstanceOf(
             Resource::class,
@@ -59,14 +62,17 @@ class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase
         );
     }
 
-    public function testBindingOverwritesExistingBinding()
+    public function testRegisterOverwritesExistingRegisteredResource()
     {
         $container = Mockery::mock(Container::class);
-        $container->shouldReceive('make')->with(OtherResource::class)->once()->andReturn(new OtherResource);
+        $container->shouldReceive('make')
+            ->once()
+            ->with(OtherResource::class)
+            ->andReturn(new OtherResource);
 
         $manager = $this->getInstance($container);
-        $manager->bind('test', Resource::class);
-        $manager->bind('test', OtherResource::class);
+        $manager->register('test', Resource::class);
+        $manager->register('test', OtherResource::class);
 
         $this->assertInstanceOf(
             OtherResource::class,

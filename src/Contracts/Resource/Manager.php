@@ -14,21 +14,21 @@ namespace ByCedric\Allay\Contracts\Resource;
 interface Manager
 {
     /**
-     * Register a binding within the resource manager.
+     * Register a new resource within the resource manager.
      *
      * @param  string $name
      * @param  string $class
      * @return void
      */
-    public function bind($name, $class);
+    public function register($name, $class);
 
     /**
-     * Determine if the given resource name has been bound.
+     * Determine if the given resource name has been registered.
      *
      * @param  string $name
      * @return boolean
      */
-    public function bound($name);
+    public function contains($name);
 
     /**
      * Resolve the given resource name.
