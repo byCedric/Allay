@@ -36,6 +36,7 @@ class UpdateStatusCodeByRequestMethod
 
     /**
      * Update the status code of the response, if it's set to default and.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure                  $next
      * @return \Illuminate\Http\Response
