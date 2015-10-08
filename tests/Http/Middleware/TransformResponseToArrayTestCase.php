@@ -13,8 +13,8 @@ namespace ByCedric\Allay\Tests\Http\Middleware;
 
 use ByCedric\Allay\Contracts\Transformers\Transformer;
 use ByCedric\Allay\Http\Middleware\TransformResponseToArray;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Mockery;
 
 class TransformResponseToArrayTestCase extends \ByCedric\Allay\Tests\TestCase
@@ -22,7 +22,7 @@ class TransformResponseToArrayTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the content transforming middleware.
      *
-     * @param  null|\ByCedric\Allay\Contracts\Transformers\Transformer $transformer (default: null)
+     * @param  null|\ByCedric\Allay\Contracts\Transformers\Transformer  $transformer (default: null)
      * @return \ByCedric\Allay\Http\Middleware\TransformResponseToArray
      */
     public function getInstance(Transformer $transformer = null)

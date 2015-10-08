@@ -50,7 +50,7 @@ class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase
         $container->shouldReceive('make')
             ->once()
             ->with(Resource::class)
-            ->andReturn(new Resource);
+            ->andReturn(new Resource());
 
         $manager = $this->getInstance($container);
         $manager->register('test', Resource::class);
@@ -68,7 +68,7 @@ class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase
         $container->shouldReceive('make')
             ->once()
             ->with(OtherResource::class)
-            ->andReturn(new OtherResource);
+            ->andReturn(new OtherResource());
 
         $manager = $this->getInstance($container);
         $manager->register('test', Resource::class);

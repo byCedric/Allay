@@ -22,7 +22,7 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working laravel service provider instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application $app (default: null)
+     * @param  \Illuminate\Contracts\Foundation\Application     $app (default: null)
      * @return \ByCedric\Allay\Providers\LaravelServiceProvider
      */
     public function getInstance(Application $app = null)
@@ -183,6 +183,7 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
                 ['my' => 'settings'],
                 Mockery::on(function ($closure) use ($router) {
                     $closure($router);
+
                     return true;
                 })
             );

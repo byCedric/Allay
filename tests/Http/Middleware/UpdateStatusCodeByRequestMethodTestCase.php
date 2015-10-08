@@ -11,10 +11,9 @@
 
 namespace ByCedric\Allay\Http\Middleware;
 
-use ByCedric\Allay\Http\Middleware\UpdateStatusCodeByRequestMethod;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Mockery;
 
 class UpdateStatusCodeByRequestMethodTestCase extends \ByCedric\Allay\Tests\TestCase
@@ -22,7 +21,7 @@ class UpdateStatusCodeByRequestMethodTestCase extends \ByCedric\Allay\Tests\Test
     /**
      * Get a working instance of the status code updating middleware.
      *
-     * @param  null|\Illuminate\Contracts\Config\Repository $config (default: null)
+     * @param  null|\Illuminate\Contracts\Config\Repository                    $config (default: null)
      * @return \ByCedric\Allay\Http\Middleware\UpdateStatusCodeByRequestMethod
      */
     public function getInstance(Repository $config = null)

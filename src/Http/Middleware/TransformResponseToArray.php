@@ -38,8 +38,8 @@ class TransformResponseToArray
      * Make sure the content of the response is formatted using the transformer,
      * for the incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure                  $next
      * @return \Illuminate\Http\Response
      */
     public function handle($request, \Closure $next)

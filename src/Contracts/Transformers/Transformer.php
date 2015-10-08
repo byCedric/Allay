@@ -16,8 +16,8 @@ interface Transformer
     /**
      * Transform the given value into a plain array.
      *
-     * @param  mixed   $value
-     * @param  integer $status
+     * @param  mixed $value
+     * @param  int   $status
      * @return array
      */
     public function transform($value, $status);

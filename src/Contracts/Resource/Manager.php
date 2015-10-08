@@ -26,7 +26,7 @@ interface Manager
      * Determine if the given resource name has been registered.
      *
      * @param  string $name
-     * @return boolean
+     * @return bool
      */
     public function contains($name);
 

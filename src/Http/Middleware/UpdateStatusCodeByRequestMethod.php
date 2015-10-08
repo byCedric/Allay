@@ -35,9 +35,9 @@ class UpdateStatusCodeByRequestMethod
     }
 
     /**
-     * Update the status code of the response, if it's set to default and
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * Update the status code of the response, if it's set to default and.
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure                  $next
      * @return \Illuminate\Http\Response
      */
     public function handle($request, \Closure $next)
@@ -69,7 +69,7 @@ class UpdateStatusCodeByRequestMethod
      * Determine if we should update the status code, by request method.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return boolean
+     * @return bool
      */
     protected function shouldUpdateStatus($request, Response $response)
     {

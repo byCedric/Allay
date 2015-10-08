@@ -23,14 +23,14 @@ class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandle
      */
     protected function getInstance()
     {
-        return new ModelNotFoundHandler;
+        return new ModelNotFoundHandler();
     }
 
     public function testCapableReturnsTrueWhenResourceExceptionWasProvided()
     {
         $this->assertIsCapable(
             $this->getInstance(),
-            new ModelNotFoundException,
+            new ModelNotFoundException(),
             'Handler was not capable of handling designated exception.'
         );
     }
@@ -39,7 +39,7 @@ class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandle
     {
         $this->assertIsNotCapable(
             $this->getInstance(),
-            new \InvalidArgumentException,
+            new \InvalidArgumentException(),
             'Handler was capable of "strange" exception.'
         );
     }
@@ -48,7 +48,7 @@ class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandle
     {
         $this->assertHandlesToResponse(
             $this->getInstance(),
-            new ModelNotFoundException,
+            new ModelNotFoundException(),
             404,
             'Handler returned a malformed response.'
         );

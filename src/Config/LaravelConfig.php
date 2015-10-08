@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Allay package.
+ *
+ * (c) Cedric van Putten <me@bycedric.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 return [
 
     /*
@@ -24,7 +33,7 @@ return [
 
     'resources' => [
         'manager' => ByCedric\Allay\Resource\Manager::class,
-        'models' => [
+        'models'  => [
             // 'projects' => App\Project::class
         ],
     ],
@@ -51,8 +60,8 @@ return [
 
     'routes' => [
         'controller' => ByCedric\Allay\Http\Controllers\LaravelController::class,
-        'settings' => [
-            'prefix' => 'v1',
+        'settings'   => [
+            'prefix'     => 'v1',
             'middleware' => [
                 ByCedric\Allay\Http\Middleware\TransformResponseToArray::class,
                 ByCedric\Allay\Http\Middleware\UpdateStatusCodeByRequestMethod::class,
@@ -95,7 +104,7 @@ return [
     */
 
     'exceptions' => [
-        'manager' => ByCedric\Allay\Exceptions\Manager::class,
+        'manager'  => ByCedric\Allay\Exceptions\Manager::class,
         'handlers' => [
             ByCedric\Allay\Exceptions\Handlers\ModelNotFoundHandler::class,
             ByCedric\Allay\Exceptions\Handlers\ResourceNotFoundHandler::class,
@@ -114,10 +123,10 @@ return [
     */
 
     'statuses' => [
-        Illuminate\Http\Request::METHOD_GET => 200,
-        Illuminate\Http\Request::METHOD_POST => 201,
-        Illuminate\Http\Request::METHOD_PUT => 204,
-        Illuminate\Http\Request::METHOD_PATCH => 204,
+        Illuminate\Http\Request::METHOD_GET    => 200,
+        Illuminate\Http\Request::METHOD_POST   => 201,
+        Illuminate\Http\Request::METHOD_PUT    => 204,
+        Illuminate\Http\Request::METHOD_PATCH  => 204,
         Illuminate\Http\Request::METHOD_DELETE => 204,
     ],
 

@@ -25,7 +25,7 @@ class Manager implements \ByCedric\Allay\Contracts\Exceptions\Manager
     /**
      * Try to fetch the registered handler for the given exception.
      *
-     * @param  string|\Exception $error
+     * @param  string|\Exception                            $error
      * @return \ByCedric\Allay\Contracts\Exceptions\Handler
      */
     protected function getHandler($error)
@@ -52,7 +52,7 @@ class Manager implements \ByCedric\Allay\Contracts\Exceptions\Manager
      * Determine if the given exception manager is capable of handling the exception.
      *
      * @param  \Exception $error
-     * @return boolean
+     * @return bool
      */
     public function capable(\Exception $error)
     {
@@ -62,7 +62,7 @@ class Manager implements \ByCedric\Allay\Contracts\Exceptions\Manager
     /**
      * Handle the given exception to return a valid response.
      *
-     * @param  \Exception $error
+     * @param  \Exception                $error
      * @return \Illuminate\Http\Response
      */
     public function handle(\Exception $error)
@@ -74,4 +74,3 @@ class Manager implements \ByCedric\Allay\Contracts\Exceptions\Manager
         }
     }
 }
-
