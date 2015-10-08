@@ -97,7 +97,7 @@ return [
     'exceptions' => [
         'manager' => ByCedric\Allay\Exceptions\Manager::class,
         'handlers' => [
-            ByCedric\Allay\Exceptions\Handlers\ModelNotFoundException::class,
+            ByCedric\Allay\Exceptions\Handlers\ModelNotFoundHandler::class,
             ByCedric\Allay\Exceptions\Handlers\ResourceNotFoundHandler::class,
         ],
     ],

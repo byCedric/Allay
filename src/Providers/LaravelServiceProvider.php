@@ -34,7 +34,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
      */
     protected function getConfigFile()
     {
-        return __DIR__ . '/../config.php';
+        return __DIR__ . '/../Config/LaravelConfig.php';
     }
 
     /**

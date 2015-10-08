@@ -51,6 +51,31 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Assert if the provided string is a subclass of the expected subclass.
+     *
+     * @param  string $expected
+     * @param  string $classType
+     * @param  string $message   (default: '')
+     * @return void
+     */
+    public function assertSubclassOf($expected, $classType, $message = '')
+    {
+        $this->assertTrue(is_subclass_of($classType, $expected), $message);
+    }
+
+    /**
+     * Assert if the proviided class type exists.
+     *
+     * @param  string $classType
+     * @param  string $message   (default: '')
+     * @return void
+     */
+    public function assertClassExists($classType, $message = '')
+    {
+        $this->assertTrue(class_exists($classType), $message);
+    }
+
+    /**
      * Call protected method that can't be called otherwise.
      *
      * @param  object &$instance

@@ -59,6 +59,16 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
         );
     }
 
+    public function testGetConfigFileReturnsReadableConfigurationFile()
+    {
+        $provider = $this->getInstance();
+
+        $this->assertFileExists(
+            $this->callProtectedMethod($provider, 'getConfigFile'),
+            'Configuration file was not readable.'
+        );
+    }
+
     public function testGetConfigPathFetchesPathFromApplicationAndAppendsGivenPath()
     {
         $app = Mockery::mock(Application::class);
