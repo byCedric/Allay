@@ -22,7 +22,7 @@ class TransformResponseToArrayTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the content transforming middleware.
      *
-     * @param  null|\ByCedric\Allay\Contracts\Transformers\Transformer $transformer
+     * @param  null|\ByCedric\Allay\Contracts\Transformers\Transformer $transformer (default: null)
      * @return \ByCedric\Allay\Http\Middleware\TransformResponseToArray
      */
     public function getInstance(Transformer $transformer = null)

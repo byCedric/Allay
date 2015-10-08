@@ -89,6 +89,4 @@ class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSame($response, $manager->handle($exception), 'Manager did not return correct response.');
         $this->assertEmpty($manager->handle($strangeException), 'Manager did not return null from exception.');
     }
-
-    // public function testManager
 }

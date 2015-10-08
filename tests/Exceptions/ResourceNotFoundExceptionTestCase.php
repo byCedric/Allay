@@ -18,7 +18,7 @@ class ResourceNotFoundExceptionTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the resource not found exception.
      *
-     * @param  string $name
+     * @param  string $name (default: 'test')
      * @return \ByCedric\Allay\Exceptions\ResourceNotFoundException
      */
     protected function getInstance($name = 'test')

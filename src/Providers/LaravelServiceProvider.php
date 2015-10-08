@@ -40,7 +40,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     /**
      * Get the project's configuration path, to `publish` the configuration file to.
      *
-     * @param  string $path
+     * @param  string $path (default: '')
      * @return string
      */
     protected function getConfigPath($path = '')

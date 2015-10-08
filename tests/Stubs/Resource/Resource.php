@@ -13,5 +13,5 @@ namespace ByCedric\Allay\Tests\Stubs\Resource;
 
 class Resource
 {
-
+    //
 }

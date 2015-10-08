@@ -23,7 +23,7 @@ class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the resource manager.
      *
-     * @param  \Illuminate\Contracts\Container\Container $container
+     * @param  \Illuminate\Contracts\Container\Container $container (default: null)
      * @return \ByCedric\Allay\Resource\Manager
      */
     protected function getInstance(Container $container = null)

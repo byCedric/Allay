@@ -22,7 +22,7 @@ class UpdateStatusCodeByRequestMethodTestCase extends \ByCedric\Allay\Tests\Test
     /**
      * Get a working instance of the status code updating middleware.
      *
-     * @param  null|\Illuminate\Contracts\Config\Repository $config
+     * @param  null|\Illuminate\Contracts\Config\Repository $config (default: null)
      * @return \ByCedric\Allay\Http\Middleware\UpdateStatusCodeByRequestMethod
      */
     public function getInstance(Repository $config = null)

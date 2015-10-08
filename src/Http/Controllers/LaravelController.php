@@ -11,25 +11,8 @@
 
 namespace ByCedric\Allay\Http\Controllers;
 
-use ByCedric\Allay\Contracts\Resource\Manager as ResourceManager;
-use Illuminate\Http\Request;
-
 class LaravelController extends \Illuminate\Routing\Controller
 {
     use Traits\IndexActionTrait,
         Traits\ShowActionTrait;
-
-
-
-    // index
-    // show
-    // store
-    // update
-    // destroy
-    //
-    // relatedIndex
-    // relatedShow
-    // relatedStore
-    // relatedUpdate
-    // relatedDestroy
 }
