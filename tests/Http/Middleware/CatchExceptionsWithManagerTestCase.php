@@ -21,7 +21,7 @@ class CatchExceptionsWithManagerTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the error catching middleware.
      *
-     * @param  null|\ByCedric\Allay\Contracts\Exceptions\Manager $manager (default: null)
+     * @param  null|\ByCedric\Allay\Contracts\Exceptions\Manager          $manager (default: null)
      * @return \ByCedric\Allay\Http\Middleware\CatchExceptionsWithManager
      */
     public function getInstance(Manager $manager = null)

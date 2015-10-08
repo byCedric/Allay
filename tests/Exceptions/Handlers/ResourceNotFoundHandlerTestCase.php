@@ -23,7 +23,7 @@ class ResourceNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHan
      */
     protected function getInstance()
     {
-        return new ResourceNotFoundHandler;
+        return new ResourceNotFoundHandler();
     }
 
     public function testCapableReturnsTrueWhenResourceExceptionWasProvided()
@@ -39,7 +39,7 @@ class ResourceNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHan
     {
         $this->assertIsNotCapable(
             $this->getInstance(),
-            new \RuntimeException,
+            new \RuntimeException(),
             'Handler was capable of "strange" exception.'
         );
     }

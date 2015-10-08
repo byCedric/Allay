@@ -36,8 +36,8 @@ class CatchExceptionsWithManager
     /**
      * Handle all exceptions that can be managed, returning a response object.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure                  $next
      * @return \Illuminate\Http\Response
      */
     public function handle($request, \Closure $next)
@@ -52,8 +52,8 @@ class CatchExceptionsWithManager
     /**
      * Handle the given exception, if it can't be handled it will be rethrown.
      *
+     * @param  \Exception                $error
      * @throws \Exception
-     * @param  \Exception $error
      * @return \Illuminate\Http\Response
      */
     protected function handleException(\Exception $error)

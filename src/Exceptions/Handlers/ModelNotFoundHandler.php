@@ -20,7 +20,7 @@ class ModelNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handl
      * Determine if the handler is capable of handling the given exception.
      *
      * @param  \Exception $error
-     * @return boolean
+     * @return bool
      */
     public function capable(\Exception $error)
     {
@@ -30,7 +30,7 @@ class ModelNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handl
     /**
      * Handle the given exception to return a valid response.
      *
-     * @param  \Exception $error
+     * @param  \Exception                $error
      * @return \Illuminate\Http\Response
      */
     public function handle(\Exception $error)

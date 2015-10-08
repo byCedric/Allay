@@ -34,7 +34,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
      */
     protected function getConfigFile()
     {
-        return __DIR__ . '/../Config/LaravelConfig.php';
+        return __DIR__.'/../Config/LaravelConfig.php';
     }
 
     /**
@@ -45,7 +45,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
      */
     protected function getConfigPath($path = '')
     {
-        return $this->app->make('path.config') . ($path ? DIRECTORY_SEPARATOR . $path : '');
+        return $this->app->make('path.config').($path ? DIRECTORY_SEPARATOR.$path : '');
     }
 
     /**

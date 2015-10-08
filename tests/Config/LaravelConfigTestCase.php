@@ -26,7 +26,7 @@ class LaravelConfigTestCase extends \ByCedric\Allay\Tests\TestCase
      */
     protected function getConfig($item = null)
     {
-        $config = include __DIR__ . '/../../src/Config/LaravelConfig.php';
+        $config = include __DIR__.'/../../src/Config/LaravelConfig.php';
 
         if (!empty($item)) {
             foreach (explode('.', $item) as $subitem) {

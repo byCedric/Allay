@@ -76,7 +76,7 @@ abstract class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvid
     protected function registerExceptionManager()
     {
         $this->app->singleton(ExceptionManager::class, function ($app) {
-            return new ExceptionManager;
+            return new ExceptionManager();
         });
     }
 

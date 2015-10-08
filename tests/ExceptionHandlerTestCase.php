@@ -47,7 +47,7 @@ abstract class ExceptionHandlerTestCase extends TestCase
      *
      * @param  \ByCedric\Allay\Contracts\Excpetions\Handler $handler
      * @param  \Exception                                   $error
-     * @param  integer                                      $status
+     * @param  int                                          $status
      * @param  string                                       $message (default: '')
      * @return void
      */
@@ -60,6 +60,8 @@ abstract class ExceptionHandlerTestCase extends TestCase
     }
 
     abstract public function testCapableReturnsTrueWhenResourceExceptionWasProvided();
+
     abstract public function testCapableReturnsFalseWhenOtherExceptionsAreProvided();
+
     abstract public function testHandleReturnsResponseWithCorrectStatus();
 }

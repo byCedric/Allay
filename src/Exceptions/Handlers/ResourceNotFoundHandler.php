@@ -20,7 +20,7 @@ class ResourceNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Ha
      * Determine if the handler is capable of handling the given exception.
      *
      * @param  \Exception $error
-     * @return boolean
+     * @return bool
      */
     public function capable(\Exception $error)
     {
@@ -30,7 +30,7 @@ class ResourceNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Ha
     /**
      * Handle the given exception to return a valid response.
      *
-     * @param  \Exception $error
+     * @param  \Exception                $error
      * @return \Illuminate\Http\Response
      */
     public function handle(\Exception $error)

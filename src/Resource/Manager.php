@@ -57,7 +57,7 @@ class Manager implements \ByCedric\Allay\Contracts\Resource\Manager
      * Determine if the given resource name has been registered.
      *
      * @param  string $name
-     * @return boolean
+     * @return bool
      */
     public function contains($name)
     {
@@ -67,8 +67,8 @@ class Manager implements \ByCedric\Allay\Contracts\Resource\Manager
     /**
      * Resolve the given resource name.
      *
+     * @param  string                                               $name
      * @throws \ByCedric\Allay\Exceptions\ResourceNotFoundException
-     * @param  string $name
      * @return mixed
      */
     public function make($name)
