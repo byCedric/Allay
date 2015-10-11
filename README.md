@@ -106,8 +106,8 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [icon-version]: https://img.shields.io/packagist/v/bycedric/allay.svg?style=flat-square
 [icon-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[icon-build]: https://img.shields.io/travis/byCedric/Allay/develop.svg?style=flat-square
-[icon-coverage]: https://img.shields.io/coveralls/byCedric/Allay/develop.svg?style=flat-square
+[icon-build]: https://img.shields.io/travis/byCedric/Allay/master.svg?style=flat-square
+[icon-coverage]: https://img.shields.io/coveralls/byCedric/Allay/master.svg?style=flat-square
 [icon-climate]: https://img.shields.io/codeclimate/github/byCedric/Allay.svg?style=flat-square
 [icon-downloads]: https://img.shields.io/packagist/dt/bycedric/allay.svg?style=flat-square
 
