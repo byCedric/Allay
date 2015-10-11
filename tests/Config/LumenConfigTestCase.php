@@ -11,7 +11,7 @@
 
 namespace ByCedric\Allay\Tests\Config;
 
-class LaravelConfigTestCase extends \ByCedric\Allay\Tests\ConfigTestCase
+class LumenConfigTestCase extends \ByCedric\Allay\Tests\ConfigTestCase
 {
     /**
      * Get the path of the configuration file, to test.
@@ -20,6 +20,6 @@ class LaravelConfigTestCase extends \ByCedric\Allay\Tests\ConfigTestCase
      */
     protected function getConfigPath()
     {
-        return __DIR__.'/../../src/Config/LaravelConfig.php';
+        return __DIR__.'/../../src/Config/LumenConfig.php';
     }
 }
