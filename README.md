@@ -56,12 +56,27 @@ This can be done by adding the following code to the **/config/app.php**.
      */
     ...,
 
-    ByCedric\Allay\AllayServiceProvider::class,
+    ByCedric\Allay\Providers\LaravelServiceProvider::class,
 
 ]
 ```
 
 > Please add the service provider to the **bottom** of the providers list. If you don't, routes cannot be overwritten.
+
+### [Lumen](http://lumen.laravel.com/)
+You can also get `Allay` working on Lumen, a light-weight and blazing fast Laravel version.
+This can be done by adding the following code to the **/bootstrap/app.php**.
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Register Service Providers
+|--------------------------------------------------------------------------
+...
+*/
+
+$app->register(ByCedric\Allay\Providers\LumenServiceProvider::class);
+```
 
 ## Usage
 To get started with `Allay` take a look at the [wiki](../../wiki) pages.
@@ -91,8 +106,8 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [icon-version]: https://img.shields.io/packagist/v/bycedric/allay.svg?style=flat-square
 [icon-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[icon-build]: https://img.shields.io/travis/byCedric/Allay/master.svg?style=flat-square
-[icon-coverage]: https://img.shields.io/coveralls/byCedric/Allay/master.svg?style=flat-square
+[icon-build]: https://img.shields.io/travis/byCedric/Allay/develop.svg?style=flat-square
+[icon-coverage]: https://img.shields.io/coveralls/byCedric/Allay/develop.svg?style=flat-square
 [icon-climate]: https://img.shields.io/codeclimate/github/byCedric/Allay.svg?style=flat-square
 [icon-downloads]: https://img.shields.io/packagist/dt/bycedric/allay.svg?style=flat-square
 
