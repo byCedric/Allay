@@ -11,22 +11,13 @@
 
 namespace ByCedric\Allay\Providers;
 
-use Illuminate\Contracts\Config\Repository;
+use ByCedric\Allay\Contracts\Resource\Resolver;
+use ByCedric\Allay\Resource\Resolvers\LaravelResolver;
+use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 
 class LaravelServiceProvider extends AgnosticServiceProvider
 {
-    /**
-     * Get the config value for the provided key.
-     *
-     * @param  string $key
-     * @return mixed
-     */
-    protected function getConfig($key)
-    {
-        return $this->app->make(Repository::class)->get($key);
-    }
-
     /**
      * Get the package's configuration file.
      *
@@ -55,13 +46,12 @@ class LaravelServiceProvider extends AgnosticServiceProvider
      */
     public function boot()
     {
+        parent::boot();
+
+        $this->initializeResourceRoutes();
         $this->publishes([
             $this->getConfigFile() => $this->getConfigPath('allay.php'),
         ]);
-
-        $this->populateExceptionManager();
-        $this->populateResourceManager();
-        $this->initializeResourceRoutes();
     }
 
     /**
@@ -72,13 +62,20 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     protected function initializeResourceRoutes()
     {
         $router = $this->app->make(Router::class);
+        $resolver = $this->app->make(Resolver::class);
 
         $controller = $this->getConfig('allay.routes.controller');
         $settings = $this->getConfig('allay.routes.settings');
 
-        $router->group($settings, function ($router) use ($controller) {
-            $router->get('{resource}', "$controller@index");
-            $router->get('{resource}/{id}', "$controller@show");
+        $router->group($settings, function ($router) use ($controller, $resolver) {
+            $resource = '{' . $resolver->getResourceParameter() . '}';
+            $id = '{' . $resolver->getIdParameter() . '}';
+
+            $router->get("$resource", "$controller@index");
+            $router->get("$resource/$id", "$controller@show");
+            $router->post("$resource", "$controller@store");
+            $router->put("$resource/$id", "$controller@update");
+            $router->delete("$resource/$id", "$controller@destroy");
         });
     }
 
@@ -91,10 +88,20 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     {
         $this->mergeConfigFrom($this->getConfigFile(), 'allay');
 
-        $this->registerExceptionManager();
-        $this->registerResourceManager();
-        $this->bindExceptionManager();
-        $this->bindResourceManager();
-        $this->bindTransformer();
+        parent::register();
+
+        $this->registerLaravelResourceResolver();
+    }
+
+    /**
+     * Register the resource resolver for Laravel, as singleton, to the IoC.
+     *
+     * @return void
+     */
+    protected function registerLaravelResourceResolver()
+    {
+        $this->app->singleton(LaravelResolver::class, function ($app) {
+            return new LaravelResolver($app->make(Route::class));
+        });
     }
 }

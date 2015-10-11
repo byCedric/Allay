@@ -13,12 +13,14 @@ namespace ByCedric\Allay\Providers;
 
 use ByCedric\Allay\Contracts\Exceptions\Manager as ExceptionManagerContract;
 use ByCedric\Allay\Contracts\Resource\Manager as ResourceManagerContract;
+use ByCedric\Allay\Contracts\Resource\Resolver as ResourceResolverContract;
 use ByCedric\Allay\Contracts\Transformers\Transformer as TransformerContract;
 use ByCedric\Allay\Exceptions\Manager as ExceptionManager;
 use ByCedric\Allay\Resource\Manager as ResourceManager;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 
-abstract class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvider
+class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     /**
      * Get the config value for the provided key.
@@ -26,24 +28,89 @@ abstract class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvid
      * @param  string $key
      * @return mixed
      */
-    abstract protected function getConfig($key);
+    protected function getConfig($key)
+    {
+        return $this->app->make(Repository::class)->get($key);
+    }
 
     /**
      * Bootstrap the application services.
      *
      * @return void
      */
-    abstract public function boot();
+    public function boot()
+    {
+        $this->populateExceptionManager();
+        $this->populateResourceManager();
+    }
 
     /**
-     * Bind the transformer implementation to the abstract contract.
-     * Make it optional so the abstraction can be easily modified.
+     * Register the service provider.
      *
      * @return void
      */
-    protected function bindTransformer()
+    public function register()
     {
-        $this->app->bindIf(TransformerContract::class, $this->getConfig('allay.transformer'));
+        $this->registerExceptionManager();
+        $this->registerResourceManager();
+        $this->bindExceptionManager();
+        $this->bindResourceManager();
+        $this->bindResourceResolver();
+        $this->bindTransformer();
+    }
+
+
+    /**
+     * Register the exception manager, as singleton, to the IoC.
+     *
+     * @return void
+     */
+    protected function registerExceptionManager()
+    {
+        $this->app->singleton(ExceptionManager::class, function ($app) {
+            return new ExceptionManager();
+        });
+    }
+
+
+    /**
+     * Register the resource manager, as singleton, to the IoC.
+     *
+     * @return void
+     */
+    protected function registerResourceManager()
+    {
+        $this->app->singleton(ResourceManager::class, function ($app) {
+            return new ResourceManager($app->make(Container::class));
+        });
+    }
+
+    /**
+     * Populate the exception manager, registering all defined handlers.
+     *
+     * @return void
+     */
+    protected function populateExceptionManager()
+    {
+        $manager = $this->app->make(ExceptionManagerContract::class);
+
+        foreach ($this->getConfig('allay.exceptions.handlers') as $handler) {
+            $manager->register($this->app->make($handler));
+        }
+    }
+
+    /**
+     * Populate the resource manager, registering all defined models.
+     *
+     * @return void
+     */
+    protected function populateResourceManager()
+    {
+        $manager = $this->app->make(ResourceManagerContract::class);
+
+        foreach ($this->getConfig('allay.resources.models') as $name => $resource) {
+            $manager->register($name, $resource);
+        }
     }
 
     /**
@@ -69,54 +136,24 @@ abstract class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvid
     }
 
     /**
-     * Register the exception manager, as singleton, to the IoC.
+     * Bind the resource resolver implementation to the abstrct contract.
+     * Make it optional so the abstraction can be easily modified.
      *
      * @return void
      */
-    protected function registerExceptionManager()
+    protected function bindResourceResolver()
     {
-        $this->app->singleton(ExceptionManager::class, function ($app) {
-            return new ExceptionManager();
-        });
+        $this->app->bindIf(ResourceResolverContract::class, $this->getConfig('allay.resources.resolver'));
     }
 
     /**
-     * Populate the exception manager, registering all defined handlers.
+     * Bind the transformer implementation to the abstract contract.
+     * Make it optional so the abstraction can be easily modified.
      *
      * @return void
      */
-    protected function populateExceptionManager()
+    protected function bindTransformer()
     {
-        $manager = $this->app->make(ExceptionManagerContract::class);
-
-        foreach ($this->getConfig('allay.exceptions.handlers') as $handler) {
-            $manager->register($this->app->make($handler));
-        }
-    }
-
-    /**
-     * Register the resource manager, as singleton, to the IoC.
-     *
-     * @return void
-     */
-    protected function registerResourceManager()
-    {
-        $this->app->singleton(ResourceManager::class, function ($app) {
-            return new ResourceManager($app->make(Container::class));
-        });
-    }
-
-    /**
-     * Populate the resource manager, registering all defined models.
-     *
-     * @return void
-     */
-    protected function populateResourceManager()
-    {
-        $manager = $this->app->make(ResourceManagerContract::class);
-
-        foreach ($this->getConfig('allay.resources.models') as $name => $resource) {
-            $manager->bind($name, $resource);
-        }
+        $this->app->bindIf(TransformerContract::class, $this->getConfig('allay.transformer'));
     }
 }

@@ -33,7 +33,7 @@ return [
 
     'resources' => [
         'manager' => ByCedric\Allay\Resource\Manager::class,
-        'resolver' => ByCedric\Allay\Resource\Resolvers\LaravelResolver::class,
+        'resolver' => ByCedric\Allay\Resource\Resolvers\LumenResolver::class,
         'models'  => [
             // 'projects' => App\Project::class
         ],
@@ -60,7 +60,7 @@ return [
     */
 
     'routes' => [
-        'controller' => ByCedric\Allay\Http\Controllers\LaravelController::class,
+        'controller' => ByCedric\Allay\Http\Controllers\LumenController::class,
         'settings'   => [
             'prefix'     => 'v1',
             'middleware' => [
