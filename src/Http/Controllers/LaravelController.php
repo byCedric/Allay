@@ -13,6 +13,9 @@ namespace ByCedric\Allay\Http\Controllers;
 
 class LaravelController extends \Illuminate\Routing\Controller
 {
-    use Traits\IndexActionTrait,
-        Traits\ShowActionTrait;
+    use Traits\IndexAction,
+        Traits\ShowAction,
+        Traits\StoreAction,
+        Traits\UpdateAction,
+        Traits\DestroyAction;
 }
