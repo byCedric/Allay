@@ -11,10 +11,10 @@
 
 namespace ByCedric\Allay\Exceptions\Handlers;
 
-use ByCedric\Allay\Exceptions\ResourceNotFoundException;
+use ByCedric\Allay\Exceptions\ResourceException;
 use Illuminate\Http\Response;
 
-class ResourceNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handler
+class ResourceHandler implements \ByCedric\Allay\Contracts\Exceptions\Handler
 {
     /**
      * Determine if the handler is capable of handling the given exception.
@@ -24,7 +24,7 @@ class ResourceNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Ha
      */
     public function capable(\Exception $error)
     {
-        return $error instanceof ResourceNotFoundException;
+        return $error instanceof ResourceException;
     }
 
     /**
@@ -35,8 +35,6 @@ class ResourceNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Ha
      */
     public function handle(\Exception $error)
     {
-        return new Response([
-            'detail' => "The (requested) resource \"{$error->getResource()}\" was not found.",
-        ], 404);
+        return new Response(['detail' => $error->getMessage()], $error->getCode());
     }
 }

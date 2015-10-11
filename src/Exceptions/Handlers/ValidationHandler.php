@@ -11,10 +11,10 @@
 
 namespace ByCedric\Allay\Exceptions\Handlers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Http\Response;
 
-class ModelNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handler
+class ValidationHandler implements \ByCedric\Allay\Contracts\Exceptions\Handler
 {
     /**
      * Determine if the handler is capable of handling the given exception.
@@ -24,7 +24,7 @@ class ModelNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handl
      */
     public function capable(\Exception $error)
     {
-        return $error instanceof ModelNotFoundException;
+        return $error instanceof ValidationException;
     }
 
     /**
@@ -35,19 +35,10 @@ class ModelNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handl
      */
     public function handle(\Exception $error)
     {
-        return new Response([
-            'detail' => "The resource \"{$this->getModelName($error)}\", with the requested id, was not found.",
-        ], Response::HTTP_NOT_FOUND);
-    }
+        $errors = array_map(function ($error) {
+            return ['detail' => $error];
+        }, $error->errors()->all());
 
-    /**
-     * Get the model name, without the namespace.
-     *
-     * @param  \Illuminate\Database\Eloquent\ModelNotFoundException $error
-     * @return string
-     */
-    protected function getModelName(ModelNotFoundException $error)
-    {
-        return class_basename($error->getModel());
+        return new Response($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
