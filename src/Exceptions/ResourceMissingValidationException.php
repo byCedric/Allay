@@ -13,10 +13,10 @@ namespace ByCedric\Allay\Exceptions;
 
 use Illuminate\Http\Response;
 
-class ResourceNotFoundException extends ResourceException
+class ResourceMissingValidationException extends ResourceException
 {
     /**
-     * Create a new resource not found exception.
+     * Create a new resource missing validation exception.
      *
      * @param  string     $resource
      * @param  \Exception $previous (default: null)
@@ -26,8 +26,8 @@ class ResourceNotFoundException extends ResourceException
     {
         parent::__construct(
             $resource,
-            "The (requested) resource \"$resource\" was not found.",
-            Response::HTTP_NOT_FOUND,
+            "The resource \"$resource\" has no validation implementation, making it unavailable for user input.",
+            Response::HTTP_NOT_IMPLEMENTED,
             $previous
         );
     }
