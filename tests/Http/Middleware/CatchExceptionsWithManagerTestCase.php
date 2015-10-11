@@ -24,7 +24,7 @@ class CatchExceptionsWithManagerTestCase extends \ByCedric\Allay\Tests\TestCase
      * @param  null|\ByCedric\Allay\Contracts\Exceptions\Manager          $manager (default: null)
      * @return \ByCedric\Allay\Http\Middleware\CatchExceptionsWithManager
      */
-    public function getInstance(Manager $manager = null)
+    protected function getInstance(Manager $manager = null)
     {
         if (!$manager) {
             $manager = Mockery::mock(Manager::class);

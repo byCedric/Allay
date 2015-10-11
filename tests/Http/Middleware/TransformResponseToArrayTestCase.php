@@ -25,7 +25,7 @@ class TransformResponseToArrayTestCase extends \ByCedric\Allay\Tests\TestCase
      * @param  null|\ByCedric\Allay\Contracts\Transformers\Transformer  $transformer (default: null)
      * @return \ByCedric\Allay\Http\Middleware\TransformResponseToArray
      */
-    public function getInstance(Transformer $transformer = null)
+    protected function getInstance(Transformer $transformer = null)
     {
         if (!$transformer) {
             $transformer = Mockery::mock(Transformer::class);

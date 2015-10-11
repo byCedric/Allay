@@ -11,9 +11,11 @@
 
 namespace ByCedric\Allay\Tests\Providers;
 
+use ByCedric\Allay\Contracts\Resource\Resolver;
 use ByCedric\Allay\Providers\LaravelServiceProvider;
-use Illuminate\Contracts\Config\Repository;
+use ByCedric\Allay\Resource\Resolvers\LaravelResolver;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Mockery;
 
@@ -25,38 +27,13 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
      * @param  \Illuminate\Contracts\Foundation\Application     $app (default: null)
      * @return \ByCedric\Allay\Providers\LaravelServiceProvider
      */
-    public function getInstance(Application $app = null)
+    protected function getInstance(Application $app = null)
     {
         if (!$app) {
             $app = Mockery::mock(Application::class);
         }
 
-        return Mockery::mock(LaravelServiceProvider::class, [$app])
-            ->shouldAllowMockingProtectedMethods()
-            ->shouldDeferMissing();
-    }
-
-    public function testGetConfigFetchesFromIlluminateRepository()
-    {
-        $app = Mockery::mock(Application::class);
-        $config = Mockery::mock(Repository::class);
-        $provider = $this->getInstance($app);
-
-        $app->shouldReceive('make')
-            ->once()
-            ->with(Repository::class)
-            ->andReturn($config);
-
-        $config->shouldReceive('get')
-            ->once()
-            ->with('test')
-            ->andReturn('result');
-
-        $this->assertSame(
-            'result',
-            $this->callProtectedMethod($provider, 'getConfig', ['test']),
-            'Configuration was not returned correctly.'
-        );
+        return new LaravelServiceProvider($app);
     }
 
     public function testGetConfigFileReturnsReadableConfigurationFile()
@@ -94,7 +71,10 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
 
     public function testBootCallsAgnosticMethods()
     {
-        $provider = $this->getInstance();
+        $provider = Mockery::mock(LaravelServiceProvider::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
         $provider->shouldReceive('published')->andReturn('irrelevant');
         $provider->shouldReceive('getConfigPath')->andReturn('irrelevant');
         $provider->shouldReceive('initializeResourceRoutes')->andReturn('irrelevant');
@@ -107,7 +87,10 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
 
     public function testBootPublishedTheConfiguration()
     {
-        $provider = $this->getInstance();
+        $provider = Mockery::mock(LaravelServiceProvider::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
         $provider->shouldReceive('populateExceptionManager')->andReturn('irrelevant');
         $provider->shouldReceive('populateResourceManager')->andReturn('irrelevant');
         $provider->shouldReceive('initializeResourceRoutes')->andReturn('irrelevant');
@@ -125,13 +108,18 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
 
     public function testRegisterCallsAgnosticMethods()
     {
-        $provider = $this->getInstance();
+        $provider = Mockery::mock(LaravelServiceProvider::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
         $provider->shouldReceive('mergeConfigFrom')->andReturn('irrelevant');
 
         $provider->shouldReceive('registerExceptionManager')->once();
         $provider->shouldReceive('registerResourceManager')->once();
+        $provider->shouldReceive('registerLaravelResourceResolver')->once();
         $provider->shouldReceive('bindExceptionManager')->once();
         $provider->shouldReceive('bindResourceManager')->once();
+        $provider->shouldReceive('bindResourceResolver')->once();
         $provider->shouldReceive('bindTransformer')->once();
 
         $provider->register();
@@ -139,11 +127,16 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
 
     public function testRegisterMergesConfiguration()
     {
-        $provider = $this->getInstance();
+        $provider = Mockery::mock(LaravelServiceProvider::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
         $provider->shouldReceive('registerExceptionManager')->andReturn('irrelevant');
         $provider->shouldReceive('registerResourceManager')->andReturn('irrelevant');
+        $provider->shouldReceive('registerLaravelResourceResolver')->andReturn('irrelevant');
         $provider->shouldReceive('bindExceptionManager')->andReturn('irrelevant');
         $provider->shouldReceive('bindResourceManager')->andReturn('irrelevant');
+        $provider->shouldReceive('bindResourceResolver')->andReturn('irrelevant');
         $provider->shouldReceive('bindTransformer')->andReturn('irrelevant');
 
         $provider->shouldReceive('mergeConfigFrom')
@@ -157,12 +150,28 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $app = Mockery::mock(Application::class);
         $router = Mockery::mock(Router::class);
-        $provider = $this->getInstance($app);
+        $resolver = Mockery::mock(Resolver::class);
+        $provider = Mockery::mock(LaravelServiceProvider::class, [$app])
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
 
         $app->shouldReceive('make')
             ->once()
             ->with(Router::class)
             ->andReturn($router);
+
+        $app->shouldReceive('make')
+            ->once()
+            ->with(Resolver::class)
+            ->andReturn($resolver);
+
+        $resolver->shouldReceive('getResourceParameter')
+            ->atLeast()->once()
+            ->andReturn('resource');
+
+        $resolver->shouldReceive('getIdParameter')
+            ->atLeast()->once()
+            ->andReturn('id');
 
         $provider->shouldReceive('getConfig')
             ->once()
@@ -176,6 +185,9 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
 
         $router->shouldReceive('get')->once()->with('{resource}', 'My\\Controller@index');
         $router->shouldReceive('get')->once()->with('{resource}/{id}', 'My\\Controller@show');
+        $router->shouldReceive('post')->once()->with('{resource}', 'My\\Controller@store');
+        $router->shouldReceive('put')->once()->with('{resource}/{id}', 'My\\Controller@update');
+        $router->shouldReceive('delete')->once()->with('{resource}/{id}', 'My\\Controller@destroy');
 
         $router->shouldReceive('group')
             ->once()
@@ -189,5 +201,28 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
             );
 
         $this->callProtectedMethod($provider, 'initializeResourceRoutes');
+    }
+
+    public function testRegisterLaravelResourceResolverRegistersLaravelResolverAsSingleton()
+    {
+        $route = Mockery::mock(Route::class);
+        $app = Mockery::mock(Application::class);
+        $provider = $this->getInstance($app);
+
+        $app->shouldReceive('make')
+            ->once()
+            ->with(Route::class)
+            ->andReturn($route);
+
+        $app->shouldReceive('singleton')
+            ->once()
+            ->with(
+                LaravelResolver::class,
+                Mockery::on(function ($closure) use ($app) {
+                    return $closure($app) instanceof LaravelResolver;
+                })
+            );
+
+        $this->callProtectedMethod($provider, 'registerLaravelResourceResolver');
     }
 }

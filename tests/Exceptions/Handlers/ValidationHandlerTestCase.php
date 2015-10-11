@@ -11,26 +11,31 @@
 
 namespace ByCedric\Allay\Tests\Exceptions\Handlers;
 
-use ByCedric\Allay\Exceptions\Handlers\ResourceNotFoundHandler;
-use ByCedric\Allay\Exceptions\ResourceNotFoundException;
+use ByCedric\Allay\Exceptions\Handlers\ValidationHandler;
+use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Contracts\Support\MessageProvider;
+use Illuminate\Contracts\Validation\ValidationException;
+use Mockery;
 
-class ResourceNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTestCase
+class ValidationHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTestCase
 {
     /**
      * Get a working instance of the resource not found handler.
      *
-     * @return \ByCedric\Allay\Exceptions\Handlers\ResourceNotFoundHandler
+     * @return \ByCedric\Allay\Exceptions\Handlers\ValidationHandler
      */
     protected function getInstance()
     {
-        return new ResourceNotFoundHandler();
+        return new ValidationHandler();
     }
 
     public function testCapableReturnsTrueWhenResourceExceptionWasProvided()
     {
+        $messages = Mockery::mock(MessageProvider::class);
+
         $this->assertIsCapable(
             $this->getInstance(),
-            new ResourceNotFoundException('test'),
+            new ValidationException($messages),
             'Handler was not capable of handling designated exception.'
         );
     }
@@ -39,17 +44,28 @@ class ResourceNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHan
     {
         $this->assertIsNotCapable(
             $this->getInstance(),
-            new \RuntimeException(),
+            new \InvalidArgumentException(),
             'Handler was capable of "strange" exception.'
         );
     }
 
     public function testHandleReturnsResponseWithCorrectStatus()
     {
+        $errors = Mockery::mock(MessageBag::class);
+        $messages = Mockery::mock(MessageProvider::class);
+
+        $errors->shouldReceive('all')
+            ->once()
+            ->andReturn(['error']);
+
+        $messages->shouldReceive('getMessageBag')
+            ->once()
+            ->andReturn($errors);
+
         $this->assertHandlesToResponse(
             $this->getInstance(),
-            new ResourceNotFoundException('test'),
-            404,
+            new ValidationException($messages),
+            422,
             'Handler returned a malformed response.'
         );
     }

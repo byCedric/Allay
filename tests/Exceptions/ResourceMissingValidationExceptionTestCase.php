@@ -11,22 +11,22 @@
 
 namespace ByCedric\Allay\Tests\Exceptions;
 
-use ByCedric\Allay\Exceptions\ResourceNotFoundException;
+use ByCedric\Allay\Exceptions\ResourceMissingValidationException;
 
-class ResourceNotFoundExceptionTestCase extends \ByCedric\Allay\Tests\TestCase
+class ResourceMissingValidationExceptionTestCase extends \ByCedric\Allay\Tests\TestCase
 {
     /**
-     * Get a working instance of the resource not found exception.
+     * Get a working instance of the resource exception.
      *
-     * @param  string                                               $name (default: 'test')
-     * @return \ByCedric\Allay\Exceptions\ResourceNotFoundException
+     * @param  string                                                        $name (default: 'test')
+     * @return \ByCedric\Allay\Exceptions\ResourceMissingValidationException
      */
     protected function getInstance($name = 'test')
     {
-        return new ResourceNotFoundException($name);
+        return new ResourceMissingValidationException($name);
     }
 
-    public function testResourceNotFoundExceptionReturnsMessage()
+    public function testResourceMissingValidationExceptionReturnsMessage()
     {
         $this->assertString(
             $this->getInstance()->getMessage(),
@@ -34,10 +34,10 @@ class ResourceNotFoundExceptionTestCase extends \ByCedric\Allay\Tests\TestCase
         );
     }
 
-    public function testResourceNotFoundExceptionReturnsStatusCode()
+    public function testResourceMissingValidationExceptionReturnsStatusCode()
     {
         $this->assertSame(
-            404,
+            501,
             $this->getInstance()->getCode(),
             'Exception did not return a valid status code.'
         );

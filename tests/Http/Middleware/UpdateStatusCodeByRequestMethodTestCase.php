@@ -24,7 +24,7 @@ class UpdateStatusCodeByRequestMethodTestCase extends \ByCedric\Allay\Tests\Test
      * @param  null|\Illuminate\Contracts\Config\Repository                    $config (default: null)
      * @return \ByCedric\Allay\Http\Middleware\UpdateStatusCodeByRequestMethod
      */
-    public function getInstance(Repository $config = null)
+    protected function getInstance(Repository $config = null)
     {
         if (!$config) {
             $config = Mockery::mock(Repository::class);

@@ -14,10 +14,12 @@ namespace ByCedric\Allay\Tests\Providers;
 use ByCedric\Allay\Contracts\Exceptions\Handler as ExceptionHandlerContract;
 use ByCedric\Allay\Contracts\Exceptions\Manager as ExceptionManagerContract;
 use ByCedric\Allay\Contracts\Resource\Manager as ResourceManagerContract;
+use ByCedric\Allay\Contracts\Resource\Resolver as ResourceResolverContract;
 use ByCedric\Allay\Contracts\Transformers\Transformer as TransformerContract;
 use ByCedric\Allay\Exceptions\Manager as ExceptionManager;
 use ByCedric\Allay\Providers\AgnosticServiceProvider;
 use ByCedric\Allay\Resource\Manager as ResourceManager;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
@@ -30,66 +32,62 @@ class AgnosticServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
      * @param  \Illuminate\Contracts\Foundation\Application      $app (default: null)
      * @return \ByCedric\Allay\Providers\AgnosticServiceProvider
      */
-    public function getInstance(Application $app = null)
+    protected function getInstance(Application $app = null)
     {
         if (!$app) {
             $app = Mockery::mock(Application::class);
         }
 
-        return Mockery::mock(AgnosticServiceProvider::class, [$app])
+        return new AgnosticServiceProvider($app);
+    }
+
+    public function testGetConfigFetchesFromIlluminateRepositoryAndReturnsResult()
+    {
+        $config = Mockery::mock(Repository::class);
+        $app = Mockery::mock(Application::class);
+        $provider = $this->getInstance($app);
+
+        $app->shouldReceive('make')
+            ->once()
+            ->with(Repository::class)
+            ->andReturn($config);
+
+        $config->shouldReceive('get')
+            ->once()
+            ->with('test')
+            ->andReturn('test');
+
+        $this->assertSame(
+            'test',
+            $this->callProtectedMethod($provider, 'getConfig', ['test']),
+            'Get config did not return the config value.'
+        );
+    }
+
+    public function testBootCallsAgnosticMethods()
+    {
+        $provider = Mockery::mock(AgnosticServiceProvider::class)
             ->shouldAllowMockingProtectedMethods()
             ->shouldDeferMissing();
+
+        $provider->shouldReceive('populateExceptionManager')->once();
+        $provider->shouldReceive('populateResourceManager')->once();
+        $provider->boot();
     }
 
-    public function testBindTransformerOptionallyBindsTheTransformerFromConfig()
+    public function testRegisterCallsAgnosticMethods()
     {
-        $app = Mockery::mock(Application::class);
-        $provider = $this->getInstance($app);
+        $provider = Mockery::mock(AgnosticServiceProvider::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
 
-        $provider->shouldReceive('getConfig')
-            ->once()
-            ->with('allay.transformer')
-            ->andReturn('test');
-
-        $app->shouldReceive('bindIf')
-            ->once()
-            ->with(TransformerContract::class, 'test');
-
-        $this->callProtectedMethod($provider, 'bindTransformer');
-    }
-
-    public function testBindExceptionManagerOptionallyBindsTheManagerFromConfig()
-    {
-        $app = Mockery::mock(Application::class);
-        $provider = $this->getInstance($app);
-
-        $provider->shouldReceive('getConfig')
-            ->once()
-            ->with('allay.exceptions.manager')
-            ->andReturn('test');
-
-        $app->shouldReceive('bindIf')
-            ->once()
-            ->with(ExceptionManagerContract::class, 'test');
-
-        $this->callProtectedMethod($provider, 'bindExceptionManager');
-    }
-
-    public function testBindResourceManagerOptionallyBindsTheManagerFromConfig()
-    {
-        $app = Mockery::mock(Application::class);
-        $provider = $this->getInstance($app);
-
-        $provider->shouldReceive('getConfig')
-            ->once()
-            ->with('allay.resources.manager')
-            ->andReturn('test');
-
-        $app->shouldReceive('bindIf')
-            ->once()
-            ->with(ResourceManagerContract::class, 'test');
-
-        $this->callProtectedMethod($provider, 'bindResourceManager');
+        $provider->shouldReceive('registerExceptionManager')->once();
+        $provider->shouldReceive('registerResourceManager')->once();
+        $provider->shouldReceive('bindExceptionManager')->once();
+        $provider->shouldReceive('bindResourceManager')->once();
+        $provider->shouldReceive('bindResourceResolver')->once();
+        $provider->shouldReceive('bindTransformer')->once();
+        $provider->register();
     }
 
     public function testRegisterExceptionManagerRegistersDefaultManagerAsSingleton()
@@ -136,7 +134,9 @@ class AgnosticServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
         $manager = Mockery::mock(ExceptionManagerContract::class);
         $handler = Mockery::mock(ExceptionHandlerContract::class);
         $app = Mockery::mock(Application::class);
-        $provider = $this->getInstance($app);
+        $provider = Mockery::mock(AgnosticServiceProvider::class, [$app])
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
 
         $app->shouldReceive('make')
             ->once()
@@ -166,7 +166,9 @@ class AgnosticServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $manager = Mockery::mock(ResourceManagerContract::class);
         $app = Mockery::mock(Application::class);
-        $provider = $this->getInstance($app);
+        $provider = Mockery::mock(AgnosticServiceProvider::class, [$app])
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
 
         $app->shouldReceive('make')
             ->once()
@@ -180,10 +182,86 @@ class AgnosticServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
                 'name' => 'resource',
             ]);
 
-        $manager->shouldReceive('bind')
+        $manager->shouldReceive('register')
             ->once()
             ->with('name', 'resource');
 
         $this->callProtectedMethod($provider, 'populateResourceManager');
+    }
+
+    public function testBindTransformerOptionallyBindsTheTransformerFromConfig()
+    {
+        $app = Mockery::mock(Application::class);
+        $provider = Mockery::mock(AgnosticServiceProvider::class, [$app])
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
+        $provider->shouldReceive('getConfig')
+            ->once()
+            ->with('allay.transformer')
+            ->andReturn('test');
+
+        $app->shouldReceive('bindIf')
+            ->once()
+            ->with(TransformerContract::class, 'test');
+
+        $this->callProtectedMethod($provider, 'bindTransformer');
+    }
+
+    public function testBindExceptionManagerOptionallyBindsTheManagerFromConfig()
+    {
+        $app = Mockery::mock(Application::class);
+        $provider = Mockery::mock(AgnosticServiceProvider::class, [$app])
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
+        $provider->shouldReceive('getConfig')
+            ->once()
+            ->with('allay.exceptions.manager')
+            ->andReturn('test');
+
+        $app->shouldReceive('bindIf')
+            ->once()
+            ->with(ExceptionManagerContract::class, 'test');
+
+        $this->callProtectedMethod($provider, 'bindExceptionManager');
+    }
+
+    public function testBindResourceManagerOptionallyBindsTheManagerFromConfig()
+    {
+        $app = Mockery::mock(Application::class);
+        $provider = Mockery::mock(AgnosticServiceProvider::class, [$app])
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
+        $provider->shouldReceive('getConfig')
+            ->once()
+            ->with('allay.resources.manager')
+            ->andReturn('test');
+
+        $app->shouldReceive('bindIf')
+            ->once()
+            ->with(ResourceManagerContract::class, 'test');
+
+        $this->callProtectedMethod($provider, 'bindResourceManager');
+    }
+
+    public function testBindResourceResolverOptionallyBindsTheResolverFromConfig()
+    {
+        $app = Mockery::mock(Application::class);
+        $provider = Mockery::mock(AgnosticServiceProvider::class, [$app])
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
+        $provider->shouldReceive('getConfig')
+            ->once()
+            ->with('allay.resources.resolver')
+            ->andReturn('test');
+
+        $app->shouldReceive('bindIf')
+            ->once()
+            ->with(ResourceResolverContract::class, 'test');
+
+        $this->callProtectedMethod($provider, 'bindResourceResolver');
     }
 }
