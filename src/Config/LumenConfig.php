@@ -18,7 +18,7 @@ return [
     |
     | A restful API consists of many data object, also known as resources or
     | models. To allow a single model to be accessible through the API you
-    | have to "whitelist" it with a certain name. The name will be the link to
+    | have to "white list" it with a certain name. The name will be the link to
     | the URL's and the model. All listed models will be registered
     | to the provided resource manager.
     |
@@ -44,17 +44,17 @@ return [
     | Routes
     |--------------------------------------------------------------------------
     |
-    | An API contains routes that defines the actions a resource can recieve.
+    | An API contains routes that defines the actions a resource can receive.
     | For example; some people wants to `create` projects, others would love to
     | `update` the project name. So basically, all those simple actions are
     | executed by a controller. Here you can define the controller it SHOULD
     | use. As you might have noticed, this is only one controller. Think of it as
-    | an `one size fits all` controller. It's quite repeatative to define all
+    | an `one size fits all` controller. It's quite repetitive to define all
     | actions, for every resource model again. Therefore the models are being
     | injected using the resource manager.
     |
     | And last, but not least, you can specify all settings you would like to
-    | pass to the route's group. Like the middlewares it SHOULD use, and/or a
+    | pass to the route's group. Like the middleware it SHOULD use, and/or a
     | security it SHOULD add. Customize it, to fit your project.
     |
     */

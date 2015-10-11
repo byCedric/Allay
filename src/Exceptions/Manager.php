@@ -25,7 +25,7 @@ class Manager implements \ByCedric\Allay\Contracts\Exceptions\Manager
     /**
      * Try to fetch the registered handler for the given exception.
      *
-     * @param  string|\Exception                            $error
+     * @param  \Exception                            $error
      * @return \ByCedric\Allay\Contracts\Exceptions\Handler
      */
     protected function getHandler($error)

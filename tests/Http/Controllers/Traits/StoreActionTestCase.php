@@ -19,7 +19,6 @@ use ByCedric\Allay\Tests\Stubs\Http\Controllers\Traits\StoreAction;
 use ByCedric\Allay\Tests\Stubs\Resource\Resource;
 use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Mockery;
 

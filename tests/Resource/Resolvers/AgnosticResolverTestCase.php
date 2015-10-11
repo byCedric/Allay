@@ -29,7 +29,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $this->assertString(
             $this->getInstance()->getResourceParameter(),
-            'Resolver didn\'t return a valid resource parameter.'
+            'Resolver did not return a valid resource parameter.'
         );
     }
 
@@ -38,7 +38,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSame(
             'resource',
             $this->getInstance()->getResource(),
-            'Resolver didn\'t return resource value correctly.'
+            'Resolver did not return resource value correctly.'
         );
     }
 
@@ -46,7 +46,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $this->assertString(
             $this->getInstance()->getIdParameter(),
-            'Resolver didn\'t return a valid id parameter.'
+            'Resolver did not return a valid id parameter.'
         );
     }
 
@@ -55,7 +55,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSame(
             'id',
             $this->getInstance()->getId(),
-            'Resolver didn\'t return id value correctly.'
+            'Resolver did not return id value correctly.'
         );
     }
 
@@ -63,7 +63,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $this->assertString(
             $this->getInstance()->getRelationParameter(),
-            'Resolver didn\'t return a valid relation parameter.'
+            'Resolver did not return a valid relation parameter.'
         );
     }
 
@@ -72,7 +72,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSame(
             'relation',
             $this->getInstance()->getRelation(),
-            'Resolver didn\'t return relation value correctly.'
+            'Resolver did not return relation value correctly.'
         );
     }
 
@@ -80,7 +80,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $this->assertString(
             $this->getInstance()->getSubIdParameter(),
-            'Resolver didn\'t return a valid subid parameter.'
+            'Resolver did not return a valid sub-id parameter.'
         );
     }
 
@@ -88,7 +88,7 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $this->assertSame('subid',
             $this->getInstance()->getSubId(),
-            'Resolver didn\'t return subid value correctly.'
+            'Resolver did not return sub-id value correctly.'
         );
     }
 }

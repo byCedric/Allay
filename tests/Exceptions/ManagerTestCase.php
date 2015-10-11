@@ -13,7 +13,6 @@ namespace ByCedric\Allay\Tests\Exceptions;
 
 use ByCedric\Allay\Contracts\Exceptions\Handler;
 use ByCedric\Allay\Exceptions\Manager;
-use Illuminate\Http\Response;
 use Mockery;
 
 class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase

@@ -11,7 +11,6 @@
 
 namespace ByCedric\Allay\Resource\Resolvers;
 
-use ByCedric\Allay\Resource\Resolvers\LumenResolver;
 use Illuminate\Http\Request;
 use Mockery;
 
@@ -48,7 +47,7 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSame(
             'test',
             $this->callProtectedMethod($resolver, 'getRouteParameter', ['resource']),
-            'Resolver didn\'t return the correct route parameter value.'
+            'Resolver did not return the correct route parameter value.'
         );
     }
 
@@ -67,7 +66,7 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
 
         $this->assertEmpty(
             $this->callProtectedMethod($resolver, 'getRouteParameter', ['abc']),
-            'Resolver didn\'t return empty value for unknown route parameter.'
+            'Resolver did not return empty value for unknown route parameter.'
         );
     }
 }

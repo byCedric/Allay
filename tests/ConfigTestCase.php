@@ -37,8 +37,8 @@ abstract class ConfigTestCase extends \ByCedric\Allay\Tests\TestCase
         $config = include $this->getConfigPath();
 
         if (!empty($item)) {
-            foreach (explode('.', $item) as $subitem) {
-                $config = $config[$subitem];
+            foreach (explode('.', $item) as $child) {
+                $config = $config[$child];
             }
         }
 
@@ -78,7 +78,7 @@ abstract class ConfigTestCase extends \ByCedric\Allay\Tests\TestCase
 
     public function testRouteControllerIsDefined()
     {
-        $this->assertClassExists($this->getConfig('routes.controller'), 'Defined controller class doesn\'t exists.');
+        $this->assertClassExists($this->getConfig('routes.controller'), 'Defined controller class does not exists.');
     }
 
     public function testRouteSettingsIsAnArray()
@@ -102,7 +102,7 @@ abstract class ConfigTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSubclassOf(
             TransformerContract::class,
             $this->getConfig('transformer'),
-            'Defined transformer is not copatible.'
+            'Defined transformer is not compatible.'
         );
     }
 
@@ -111,7 +111,7 @@ abstract class ConfigTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSubclassOf(
             ExceptionManagerContract::class,
             $this->getConfig('exceptions.manager'),
-            'Defined exeption manager is not compatible.'
+            'Defined exception manager is not compatible.'
         );
     }
 

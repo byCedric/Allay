@@ -19,7 +19,7 @@ abstract class ExceptionHandlerTestCase extends TestCase
     /**
      * Assert if the provided handler is capable in handling the provided exception.
      *
-     * @param  \ByCedric\Allay\Contracts\Excpetions\Handler $handler
+     * @param  \ByCedric\Allay\Contracts\Exceptions\Handler $handler
      * @param  \Exception                                   $error
      * @param  string                                       $message (default: '')
      * @return void
@@ -32,7 +32,7 @@ abstract class ExceptionHandlerTestCase extends TestCase
     /**
      * Assert if the provided handler is not capable in handling the provided exception.
      *
-     * @param  \ByCedric\Allay\Contracts\Excpetions\Handler $handler
+     * @param  \ByCedric\Allay\Contracts\Exceptions\Handler $handler
      * @param  \Exception                                   $error
      * @param  string                                       $message (default: '')
      * @return void
@@ -45,7 +45,7 @@ abstract class ExceptionHandlerTestCase extends TestCase
     /**
      * Assert if the handler returns a response for the exception, with the provided status code.
      *
-     * @param  \ByCedric\Allay\Contracts\Excpetions\Handler $handler
+     * @param  \ByCedric\Allay\Contracts\Exceptions\Handler $handler
      * @param  \Exception                                   $error
      * @param  int                                          $status
      * @param  string                                       $message (default: '')

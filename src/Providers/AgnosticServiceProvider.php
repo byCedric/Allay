@@ -67,7 +67,7 @@ class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     protected function registerExceptionManager()
     {
-        $this->app->singleton(ExceptionManager::class, function ($app) {
+        $this->app->singleton(ExceptionManager::class, function () {
             return new ExceptionManager();
         });
     }
@@ -125,7 +125,7 @@ class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Bind the resource manager implmentation to the abstract contract.
+     * Bind the resource manager implementation to the abstract contract.
      * Make it optional so the abstraction can be easily modified.
      *
      * @return void
@@ -136,7 +136,7 @@ class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Bind the resource resolver implementation to the abstrct contract.
+     * Bind the resource resolver implementation to the abstract contract.
      * Make it optional so the abstraction can be easily modified.
      *
      * @return void

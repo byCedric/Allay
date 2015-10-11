@@ -69,7 +69,8 @@ class UpdateStatusCodeByRequestMethod
     /**
      * Determine if we should update the status code, by request method.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Response $response
      * @return bool
      */
     protected function shouldUpdateStatus($request, Response $response)

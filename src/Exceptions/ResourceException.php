@@ -26,7 +26,7 @@ class ResourceException extends \RuntimeException
      * @param  string     $resource
      * @param  string     $message  (default: '')
      * @param  integer    $code     (default: 0)
-     * @oaram  \Exception $previous (default: null)
+     * @param  \Exception $previous (default: null)
      * @return void
      */
     public function __construct($resource, $message = '', $code = 0, \Exception $previous = null)

@@ -64,7 +64,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Assert if the proviided class type exists.
+     * Assert if the provided class type exists.
      *
      * @param  string $classType
      * @param  string $message   (default: '')

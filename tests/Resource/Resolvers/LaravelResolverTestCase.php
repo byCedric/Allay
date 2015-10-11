@@ -11,7 +11,6 @@
 
 namespace ByCedric\Allay\Resource\Resolvers;
 
-use ByCedric\Allay\Resource\Resolvers\LaravelResolver;
 use Illuminate\Routing\Route;
 use Mockery;
 
@@ -45,7 +44,7 @@ class LaravelResolverTestCase extends \ByCedric\Allay\Tests\TestCase
         $this->assertSame(
             'test',
             $this->callProtectedMethod($resolver, 'getRouteParameter', ['resource']),
-            'Resolver didn\'t return the correct route parameter value.'
+            'Resolver did not return the correct route parameter value.'
         );
     }
 }
