@@ -68,8 +68,8 @@ class LaravelServiceProvider extends AgnosticServiceProvider
         $settings = $this->getConfig('allay.routes.settings');
 
         $router->group($settings, function ($router) use ($controller, $resolver) {
-            $resource = '{' . $resolver->getResourceParameter() . '}';
-            $id = '{' . $resolver->getIdParameter() . '}';
+            $resource = '{'.$resolver->getResourceParameter().'}';
+            $id = '{'.$resolver->getIdParameter().'}';
 
             $router->get("$resource", "$controller@index");
             $router->get("$resource/$id", "$controller@show");

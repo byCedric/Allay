@@ -44,6 +44,7 @@ trait StoreAction
         }
 
         $resource->save();
+
         return $resource;
     }
 }

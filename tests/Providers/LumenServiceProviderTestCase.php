@@ -22,7 +22,7 @@ class LumenServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working lumen service provider instance.
      *
-     * @param  Application $app (default: null)
+     * @param  Application                                    $app (default: null)
      * @return \ByCedric\Allay\Providers\LumenServiceProvider
      */
     protected function getInstance(Application $app = null)

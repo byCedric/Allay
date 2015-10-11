@@ -32,9 +32,9 @@ return [
     */
 
     'resources' => [
-        'manager' => ByCedric\Allay\Resource\Manager::class,
+        'manager'  => ByCedric\Allay\Resource\Manager::class,
         'resolver' => ByCedric\Allay\Resource\Resolvers\LumenResolver::class,
-        'models'  => [
+        'models'   => [
             // 'projects' => App\Project::class
         ],
     ],
