@@ -56,12 +56,27 @@ This can be done by adding the following code to the **/config/app.php**.
      */
     ...,
 
-    ByCedric\Allay\AllayServiceProvider::class,
+    ByCedric\Allay\Providers\LaravelServiceProvider::class,
 
 ]
 ```
 
 > Please add the service provider to the **bottom** of the providers list. If you don't, routes cannot be overwritten.
+
+### [Lumen](http://lumen.laravel.com/)
+You can also get `Allay` working on Lumen, a light-weight and blazing fast Laravel version.
+This can be done by adding the following code to the **/bootstrap/app.php**.
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Register Service Providers
+|--------------------------------------------------------------------------
+...
+*/
+
+$app->register(ByCedric\Allay\Providers\LumenServiceProvider::class);
+```
 
 ## Usage
 To get started with `Allay` take a look at the [wiki](../../wiki) pages.
