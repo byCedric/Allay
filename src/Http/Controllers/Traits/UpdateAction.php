@@ -50,6 +50,7 @@ trait UpdateAction
         }
 
         $resource->save();
+
         return $resource;
     }
 }

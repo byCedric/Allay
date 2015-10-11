@@ -25,7 +25,7 @@ class ResourceException extends \RuntimeException
      *
      * @param  string     $resource
      * @param  string     $message  (default: '')
-     * @param  integer    $code     (default: 0)
+     * @param  int        $code     (default: 0)
      * @param  \Exception $previous (default: null)
      * @return void
      */

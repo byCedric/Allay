@@ -92,4 +92,3 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
         );
     }
 }
-

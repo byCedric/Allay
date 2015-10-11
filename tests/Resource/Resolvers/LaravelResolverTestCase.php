@@ -19,7 +19,7 @@ class LaravelResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the laravel resource resolver.
      *
-     * @param  \Illuminate\Routing\Route $route (default: null)
+     * @param  \Illuminate\Routing\Route                          $route (default: null)
      * @return \ByCedric\Allay\Resource\Resolvers\LaravelResolver
      */
     protected function getInstance(Route $route = null)

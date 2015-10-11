@@ -59,7 +59,6 @@ class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->bindTransformer();
     }
 
-
     /**
      * Register the exception manager, as singleton, to the IoC.
      *
@@ -71,7 +70,6 @@ class AgnosticServiceProvider extends \Illuminate\Support\ServiceProvider
             return new ExceptionManager();
         });
     }
-
 
     /**
      * Register the resource manager, as singleton, to the IoC.

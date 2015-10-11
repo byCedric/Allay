@@ -19,7 +19,7 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the lumen resource resolver.
      *
-     * @param  \Illuminate\Http\Request $request (default: null)
+     * @param  \Illuminate\Http\Request                         $request (default: null)
      * @return \ByCedric\Allay\Resource\Resolvers\LumenResolver
      */
     protected function getInstance(Request $request = null)
@@ -39,7 +39,7 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
             ->andReturn([
                 'don\'t know about this',
                 function () { /* closure */ },
-                ['resource' => 'test']
+                ['resource' => 'test'],
             ]);
 
         $resolver = $this->getInstance($request);
@@ -59,7 +59,7 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
             ->andReturn([
                 'don\'t know about this',
                 function () { /* closure */ },
-                ['resource' => 'test']
+                ['resource' => 'test'],
             ]);
 
         $resolver = $this->getInstance($request);
