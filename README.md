@@ -81,6 +81,12 @@ $app->register(ByCedric\Allay\Providers\LumenServiceProvider::class);
 ## Usage
 To get started with `Allay` take a look at the [wiki](../../wiki) pages.
 
+## Extensions
+`Allay` is designed to be useful in many usecases, therefore the core is unopinionated.
+From the there, you can go your own way. To help you in that, here are some extensions.
+
+> [JSON API][link-ext-json-api]
+
 ## Change log
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
@@ -104,7 +110,7 @@ If you discover any security related issues, please email me@bycedric.com instea
 ## License
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[icon-version]: https://img.shields.io/packagist/v/bycedric/allay.svg?style=flat-square
+[icon-version]: https://img.shields.io/packagist/v/byCedric/Allay.svg?style=flat-square
 [icon-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [icon-build]: https://img.shields.io/travis/byCedric/Allay/master.svg?style=flat-square
 [icon-coverage]: https://img.shields.io/coveralls/byCedric/Allay/master.svg?style=flat-square
@@ -116,3 +122,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-coverage]: https://coveralls.io/r/byCedric/Allay
 [link-climate]: https://codeclimate.com/github/byCedric/Allay
 [link-downloads]: https://packagist.org/packages/bycedric/allay
+
+[link-ext-json-api]: https://github.com/byCedric/Allay-json-api

@@ -15,7 +15,7 @@ use ByCedric\Allay\Contracts\Resource\Resolver;
 use ByCedric\Allay\Providers\LaravelServiceProvider;
 use ByCedric\Allay\Resource\Resolvers\LaravelResolver;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Routing\Route;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Mockery;
 
@@ -205,14 +205,18 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
 
     public function testRegisterLaravelResourceResolverRegistersLaravelResolverAsSingleton()
     {
-        $route = Mockery::mock(Route::class);
+        $request = Mockery::mock(Request::class);
         $app = Mockery::mock(Application::class);
+
+        $request->shouldReceive('route')
+            ->once();
+
         $provider = $this->getInstance($app);
 
         $app->shouldReceive('make')
             ->once()
-            ->with(Route::class)
-            ->andReturn($route);
+            ->with(Request::class)
+            ->andReturn($request);
 
         $app->shouldReceive('singleton')
             ->once()

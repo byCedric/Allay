@@ -11,7 +11,7 @@
 
 namespace ByCedric\Allay\Resource\Resolvers;
 
-use Illuminate\Routing\Route;
+use Illuminate\Http\Request;
 
 class LaravelResolver extends AgnosticResolver
 {
@@ -28,9 +28,9 @@ class LaravelResolver extends AgnosticResolver
      * @param  \Illuminate\Routing\Route $route
      * @return void
      */
-    public function __construct(Route $route)
+    public function __construct(Request $request)
     {
-        $this->route = $route;
+        $this->route = $request->route();
     }
 
     /**

@@ -13,7 +13,7 @@ namespace ByCedric\Allay\Providers;
 
 use ByCedric\Allay\Contracts\Resource\Resolver;
 use ByCedric\Allay\Resource\Resolvers\LaravelResolver;
-use Illuminate\Routing\Route;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
 class LaravelServiceProvider extends AgnosticServiceProvider
@@ -101,7 +101,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
     protected function registerLaravelResourceResolver()
     {
         $this->app->singleton(LaravelResolver::class, function ($app) {
-            return new LaravelResolver($app->make(Route::class));
+            return new LaravelResolver($app->make(Request::class));
         });
     }
 }

@@ -11,7 +11,8 @@
 
 namespace ByCedric\Allay\Resource\Resolvers;
 
-use Illuminate\Routing\Route;
+use Illuminate\Http\Request;
+use Illuminate\Http\Route;
 use Mockery;
 
 class LaravelResolverTestCase extends \ByCedric\Allay\Tests\TestCase
@@ -19,22 +20,28 @@ class LaravelResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the laravel resource resolver.
      *
-     * @param  \Illuminate\Routing\Route                          $route (default: null)
+     * @param  \Illuminate\Http\Request                          $request (default: null)
      * @return \ByCedric\Allay\Resource\Resolvers\LaravelResolver
      */
-    protected function getInstance(Route $route = null)
+    protected function getInstance(Request $request = null)
     {
-        if (!$route) {
-            $route = Mockery::mock(Route::class);
+        if (!$request) {
+            $request = Mockery::mock(Request::class);
         }
 
-        return new LaravelResolver($route);
+        return new LaravelResolver($request);
     }
 
     public function testGetRouteParameterReturnsParameterValueFromRoute()
     {
+        $request = Mockery::mock(Request::class);
         $route = Mockery::mock(Route::class);
-        $resolver = $this->getInstance($route);
+
+        $request->shouldReceive('route')
+            ->once()
+            ->andReturn($route);
+
+        $resolver = $this->getInstance($request);
 
         $route->shouldReceive('parameter')
             ->once()
