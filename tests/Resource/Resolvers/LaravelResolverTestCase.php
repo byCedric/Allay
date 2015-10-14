@@ -20,7 +20,7 @@ class LaravelResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     /**
      * Get a working instance of the laravel resource resolver.
      *
-     * @param  \Illuminate\Http\Request                          $request (default: null)
+     * @param  \Illuminate\Http\Request                           $request (default: null)
      * @return \ByCedric\Allay\Resource\Resolvers\LaravelResolver
      */
     protected function getInstance(Request $request = null)
