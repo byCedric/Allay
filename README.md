@@ -82,10 +82,10 @@ $app->register(ByCedric\Allay\Providers\LumenServiceProvider::class);
 To get started with `Allay` take a look at the [wiki](../../wiki) pages.
 
 ## Extensions
-`Allay` is designed to be useful in many usecases, therefore the core is unopinionated.
+`Allay` is designed to be useful in as much use cases as possible, therefore the core is unopinionated.
 From the there, you can go your own way. To help you in that, here are some extensions.
 
-> [JSON API][link-ext-json-api]
+- [JSON API][link-ext-json-api]
 
 ## Change log
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
