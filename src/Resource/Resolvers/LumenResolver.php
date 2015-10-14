@@ -16,22 +16,21 @@ use Illuminate\Http\Request;
 class LumenResolver extends AgnosticResolver
 {
     /**
-     * The route parameters to resolve from.
+     * The requestion to resolve the route information with.
      *
-     * @var array
+     * @var \Illuminate\Http\Request
      */
-    protected $route;
+    protected $request;
 
     /**
-     * Get a new resource resolver instance.
+     * Get a new lumen resource resolver instance.
      *
      * @param  \Illuminate\Http\Request $request
      * @return void
      */
     public function __construct(Request $request)
     {
-        $routes = $request->route();
-        $this->route = end($routes);
+        $this->request = $request;
     }
 
     /**
@@ -42,8 +41,11 @@ class LumenResolver extends AgnosticResolver
      */
     protected function getRouteParameter($key)
     {
-        if (isset($this->route[$key])) {
-            return $this->route[$key];
+        $route = $this->request->route();
+        $route = end($route);
+
+        if (isset($route[$key])) {
+            return $route[$key];
         }
     }
 }

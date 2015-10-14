@@ -207,10 +207,6 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $request = Mockery::mock(Request::class);
         $app = Mockery::mock(Application::class);
-
-        $request->shouldReceive('route')
-            ->once();
-
         $provider = $this->getInstance($app);
 
         $app->shouldReceive('make')

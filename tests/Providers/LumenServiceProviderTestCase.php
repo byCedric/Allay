@@ -78,14 +78,6 @@ class LumenServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
             ->with(Request::class)
             ->andReturn($request);
 
-        $request->shouldReceive('route')
-            ->once()
-            ->andReturn([
-                'still don\'t know about this value',
-                function () { /* closure */ },
-                ['resource' => 'test'],
-            ]);
-
         $app->shouldReceive('singleton')
             ->once()
             ->with(

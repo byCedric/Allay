@@ -16,21 +16,21 @@ use Illuminate\Http\Request;
 class LaravelResolver extends AgnosticResolver
 {
     /**
-     * The route to resolve from.
+     * The requestion to resolve the route information with.
      *
-     * @var \Illuminate\Routing\Route
+     * @var \Illuminate\Http\Request
      */
-    protected $route;
+    protected $request;
 
     /**
-     * Get a new resource resolver instance.
+     * Get a new laravel resource resolver instance.
      *
-     * @param  \Illuminate\Routing\Route $route
+     * @param  \Illuminate\Http\Request $request
      * @return void
      */
     public function __construct(Request $request)
     {
-        $this->route = $request->route();
+        $this->request = $request;
     }
 
     /**
@@ -41,6 +41,6 @@ class LaravelResolver extends AgnosticResolver
      */
     protected function getRouteParameter($key)
     {
-        return $this->route->parameter($key);
+        return $this->request->route($key);
     }
 }

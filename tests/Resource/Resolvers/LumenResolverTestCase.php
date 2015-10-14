@@ -34,6 +34,8 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
     public function testGetRouteParameterReturnsParameterValueFromRoute()
     {
         $request = Mockery::mock(Request::class);
+        $resolver = $this->getInstance($request);
+
         $request->shouldReceive('route')
             ->once()
             ->andReturn([
@@ -41,8 +43,6 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
                 function () { /* closure */ },
                 ['resource' => 'test'],
             ]);
-
-        $resolver = $this->getInstance($request);
 
         $this->assertSame(
             'test',
