@@ -12,6 +12,7 @@
 namespace ByCedric\Allay\Tests\Resource\Resolvers;
 
 use ByCedric\Allay\Tests\Stubs\Resource\Resolvers\AgnosticResolver;
+use Mockery;
 
 class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
 {
@@ -31,14 +32,6 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
             $this->getInstance()->getResourceParameter(),
             'Resolver did not return a valid resource parameter.'
         );
-    }
-
-    public function testToCamelCaseReturnsCorrectString()
-    {
-        $resolver = $this->getInstance();
-        $string = $this->callProtectedMethod($resolver, 'toCamelCase', ['this-is my_string']);
-
-        $this->assertSame($string, 'thisIsMyString', 'Resolver did not return a valid camel case equivalent.');
     }
 
     public function testGetResourceUsesParameterToFetchAndReturnRouteValue()
@@ -81,6 +74,24 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
             'relation',
             $this->getInstance()->getRelation(),
             'Resolver did not return relation value correctly.'
+        );
+    }
+
+    public function testGetRelationMethodReturnsStringAsCamelCase()
+    {
+        $resolver = Mockery::mock(AgnosticResolver::class)
+            ->shouldAllowMockingProtectedMethods()
+            ->shouldDeferMissing();
+
+        $resolver->shouldReceive('getRouteParameter')
+            ->with('relation')
+            ->once()
+            ->andReturn('this-is My_String');
+
+        $this->assertSame(
+            'thisIsMyString',
+            $resolver->getRelationMethod(),
+            'Resolver did not return a valid camel case relation string.'
         );
     }
 
