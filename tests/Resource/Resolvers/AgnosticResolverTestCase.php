@@ -33,6 +33,14 @@ class AgnosticResolverTestCase extends \ByCedric\Allay\Tests\TestCase
         );
     }
 
+    public function testToCamelCaseReturnsCorrectString()
+    {
+        $resolver = $this->getInstance();
+        $string = $this->callProtectedMethod($resolver, 'toCamelCase', ['this-is my_string']);
+
+        $this->assertSame($string, 'thisIsMyString', 'Resolver did not return a valid camel case equivalent.');
+    }
+
     public function testGetResourceUsesParameterToFetchAndReturnRouteValue()
     {
         $this->assertSame(

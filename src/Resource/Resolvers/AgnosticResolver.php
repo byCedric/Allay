@@ -22,6 +22,17 @@ abstract class AgnosticResolver implements \ByCedric\Allay\Contracts\Resource\Re
     abstract protected function getRouteParameter($key);
 
     /**
+     * Get a camel case string of the provided value.
+     *
+     * @param  string $value
+     * @return string
+     */
+    protected function toCamelCase($value)
+    {
+        return lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $value))));
+    }
+
+    /**
      * Get the requested resource name.
      *
      * @return string
@@ -79,6 +90,16 @@ abstract class AgnosticResolver implements \ByCedric\Allay\Contracts\Resource\Re
     public function getRelationParameter()
     {
         return 'relation';
+    }
+
+    /**
+     * Get the relation of the requested resource, formatted as method.
+     *
+     * @return string
+     */
+    public function getRelationMethod()
+    {
+        return $this->toCamelCase($this->getRelation());
     }
 
     /**

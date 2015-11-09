@@ -56,6 +56,13 @@ interface Resolver
     public function getRelationParameter();
 
     /**
+     * Get the relation of the requested resource, formatted as method.
+     *
+     * @return string
+     */
+    public function getRelationMethod();
+
+    /**
      * Get the specific entity of the relation of the requested resource.
      *
      * @return string
