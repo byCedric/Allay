@@ -14,9 +14,10 @@ namespace ByCedric\Allay\Contracts\Resource;
 interface Writable
 {
     /**
-     * Get an illuminate query builder, scoped on all writable resources.
+     * Apply the correct rules to the query builder, to scope on all writable resources.
      *
+     * @param  \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
      */
-    public function getWritableQuery();
+    public function getWritableQuery($query);
 }

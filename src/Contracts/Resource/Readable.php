@@ -14,9 +14,10 @@ namespace ByCedric\Allay\Contracts\Resource;
 interface Readable
 {
     /**
-     * Get an illuminate query builder, scoped on all readable resources.
+     * Apply the correct rules to the query builder, to scope on all readable resources.
      *
+     * @param  \Illuminate\Database\Query\Builder $query
      * @return \Illuminate\Database\Query\Builder
      */
-    public function getReadableQuery();
+    public function getReadableQuery($query);
 }
