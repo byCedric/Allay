@@ -80,7 +80,7 @@ class LaravelServiceProvider extends AgnosticServiceProvider
             $router->delete("$resource/$id", "$controller@destroy");
 
             $router->get("$resource/$id/$relation", "$controller@relatedIndex");
-            $router->get("$resource/$id/$relation/$subid", "$controller@relatedIndex");
+            $router->get("$resource/$id/$relation/$subid", "$controller@relatedShow");
         });
     }
 

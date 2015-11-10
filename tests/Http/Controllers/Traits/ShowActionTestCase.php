@@ -71,7 +71,12 @@ class ShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $manager->shouldReceive('make')->andReturn($resource);
         $resolver->shouldReceive('getId')->andReturn('irrelevant');
 
+        $resource->shouldReceive('newQuery')
+            ->once()
+            ->andReturn($builder);
+
         $resource->shouldReceive('getReadableQuery')
+            ->with($builder)
             ->once()
             ->andReturn($builder);
 

@@ -69,7 +69,12 @@ class IndexActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $resolver->shouldReceive('getResource')->andReturn('irrelevant');
         $manager->shouldReceive('make')->andReturn($resource);
 
+        $resource->shouldReceive('newQuery')
+            ->once()
+            ->andReturn($builder);
+
         $resource->shouldReceive('getReadableQuery')
+            ->with($builder)
             ->once()
             ->andReturn($builder);
 

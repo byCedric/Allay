@@ -78,7 +78,12 @@ class DestroyActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $manager->shouldReceive('make')->andReturn($resource);
         $resolver->shouldReceive('getId')->andReturn('irrelevant');
 
+        $resource->shouldReceive('newQuery')
+            ->once()
+            ->andReturn($builder);
+
         $resource->shouldReceive('getWritableQuery')
+            ->with($builder)
             ->once()
             ->andReturn($builder);
 

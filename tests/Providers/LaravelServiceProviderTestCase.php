@@ -169,9 +169,17 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
             ->atLeast()->once()
             ->andReturn('resource');
 
+        $resolver->shouldReceive('getRelationParameter')
+            ->atLeast()->once()
+            ->andReturn('relation');
+
         $resolver->shouldReceive('getIdParameter')
             ->atLeast()->once()
             ->andReturn('id');
+
+        $resolver->shouldReceive('getSubIdParameter')
+            ->atLeast()->once()
+            ->andReturn('subid');
 
         $provider->shouldReceive('getConfig')
             ->once()
@@ -188,6 +196,8 @@ class LaravelServiceProviderTestCase extends \ByCedric\Allay\Tests\TestCase
         $router->shouldReceive('post')->once()->with('{resource}', 'My\\Controller@store');
         $router->shouldReceive('put')->once()->with('{resource}/{id}', 'My\\Controller@update');
         $router->shouldReceive('delete')->once()->with('{resource}/{id}', 'My\\Controller@destroy');
+        $router->shouldReceive('get')->once()->with('{resource}/{id}/{relation}', 'My\\Controller@relatedIndex');
+        $router->shouldReceive('get')->once()->with('{resource}/{id}/{relation}/{subid}', 'My\\Controller@relatedShow');
 
         $router->shouldReceive('group')
             ->once()
