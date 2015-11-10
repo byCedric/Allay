@@ -29,7 +29,7 @@ trait DestroyAction
         $resource = $manager->make($resolver->getResource());
 
         if ($resource instanceof Writable) {
-            $resource = $resource->getWritableQuery();
+            $resource = $resource->getWritableQuery($resource->newQuery());
         }
 
         $resource = $resource->findOrFail($resolver->getId());

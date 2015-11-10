@@ -23,9 +23,11 @@ trait StoreAction
     /**
      * Create a new entity of the requested resource, with the given attributes.
      *
-     * @param  \Illuminate\Http\Request                    $request
-     * @param  \ByCedric\Allay\Contracts\Resource\Manager  $manager
-     * @param  \ByCedric\Allay\Contracts\Resource\Resolver $resolver
+     * @param  \Illuminate\Http\Request                                      $request
+     * @param  \ByCedric\Allay\Contracts\Resource\Manager                    $manager
+     * @param  \ByCedric\Allay\Contracts\Resource\Resolver                   $resolver
+     * @throws \ByCedric\Allay\Exceptions\ResourceMissingValidationException
+     * @throws \Illuminate\Contracts\Validation\ValidationException
      * @return mixed
      */
     public function store(Request $request, Manager $manager, Resolver $resolver)
@@ -33,7 +35,7 @@ trait StoreAction
         $resource = $manager->make($resolver->getResource());
 
         if (!$resource instanceof Validatable) {
-            throw new ResourceMissingValidationException($resolver->getResource());
+            throw new ResourceMissingValidationException($resource);
         }
 
         $validator = $resource->fill($request->all())

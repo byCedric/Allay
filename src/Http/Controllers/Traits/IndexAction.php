@@ -29,7 +29,7 @@ trait IndexAction
         $resource = $manager->make($resolver->getResource());
 
         if ($resource instanceof Readable) {
-            $resource = $resource->getReadableQuery();
+            $resource = $resource->getReadableQuery($resource->newQuery());
         }
 
         return $resource->paginate();

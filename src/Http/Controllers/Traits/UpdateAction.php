@@ -24,9 +24,11 @@ trait UpdateAction
     /**
      * Update the requested resource entity, storing the provided values.
      *
-     * @param  \Illuminate\Http\Request                    $request
-     * @param  \ByCedric\Allay\Contracts\Resource\Manager  $manager
-     * @param  \ByCedric\Allay\Contracts\Resource\Resolver $resolver
+     * @param  \Illuminate\Http\Request                                      $request
+     * @param  \ByCedric\Allay\Contracts\Resource\Manager                    $manager
+     * @param  \ByCedric\Allay\Contracts\Resource\Resolver                   $resolver
+     * @throws \ByCedric\Allay\Exceptions\ResourceMissingValidationException
+     * @throws \Illuminate\Contracts\Validation\ValidationException
      * @return mixed
      */
     public function update(Request $request, Manager $manager, Resolver $resolver)
@@ -38,7 +40,7 @@ trait UpdateAction
         }
 
         if ($resource instanceof Writable) {
-            $resource = $resource->getWritableQuery();
+            $resource = $resource->getWritableQuery($resource->newQuery());
         }
 
         $resource = $resource->findOrFail($resolver->getId());
