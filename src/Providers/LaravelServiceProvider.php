@@ -69,13 +69,18 @@ class LaravelServiceProvider extends AgnosticServiceProvider
 
         $router->group($settings, function ($router) use ($controller, $resolver) {
             $resource = '{'.$resolver->getResourceParameter().'}';
+            $relation = '{'.$resolver->getRelationParameter().'}';
             $id = '{'.$resolver->getIdParameter().'}';
+            $subid = '{'.$resolver->getSubIdParameter().'}';
 
             $router->get("$resource", "$controller@index");
             $router->get("$resource/$id", "$controller@show");
             $router->post("$resource", "$controller@store");
             $router->put("$resource/$id", "$controller@update");
             $router->delete("$resource/$id", "$controller@destroy");
+
+            $router->get("$resource/$id/$relation", "$controller@relatedIndex");
+            $router->get("$resource/$id/$relation/$subid", "$controller@relatedIndex");
         });
     }
 
