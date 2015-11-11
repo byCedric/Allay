@@ -23,8 +23,8 @@ trait RelatedShowAction
     /**
      * Display a single resource, that matches the requested id and sub id.
      *
-     * @param  \ByCedric\Allay\Contracts\Resource\Manager                    $manager
-     * @param  \ByCedric\Allay\Contracts\Resource\Resolver                   $resolver
+     * @param  \ByCedric\Allay\Contracts\Resource\Manager                   $manager
+     * @param  \ByCedric\Allay\Contracts\Resource\Resolver                  $resolver
      * @throws \ByCedric\Allay\Exceptions\ResourceMissingRelatableException
      * @throws \ByCedric\Allay\Exceptions\ResourceRelationNotFoundException
      * @return mixed
