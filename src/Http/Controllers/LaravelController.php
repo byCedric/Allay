@@ -17,5 +17,7 @@ class LaravelController extends \Illuminate\Routing\Controller
         Traits\ShowAction,
         Traits\StoreAction,
         Traits\UpdateAction,
-        Traits\DestroyAction;
+        Traits\DestroyAction,
+        Traits\RelatedIndexAction,
+        Traits\RelatedShowAction;
 }
