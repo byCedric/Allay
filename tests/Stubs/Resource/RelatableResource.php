@@ -25,7 +25,7 @@ class RelatableResource extends Resource implements Relatable
         return [
             'relation',
             'otherRelation',
-            'notCallable'
+            'notCallable',
         ];
     }
 
