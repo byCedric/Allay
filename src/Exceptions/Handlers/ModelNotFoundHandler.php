@@ -11,11 +11,29 @@
 
 namespace ByCedric\Allay\Exceptions\Handlers;
 
+use ByCedric\Allay\Contracts\Resource\Manager as ResourceManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 
 class ModelNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handler
 {
+    /**
+     * The resource manager to fetch the model name from.
+     *
+     * @var \ByCedric\Allay\Contracts\Resource\Manager
+     */
+    private $resources;
+
+    /**
+     * Create a new model not found handler instance.
+     *
+     * @param \ByCedric\Allay\Contracts\Resource\Manager $resources
+     */
+    public function __construct(ResourceManager $resources)
+    {
+        $this->resources = $resources;
+    }
+
     /**
      * Determine if the handler is capable of handling the given exception.
      *
@@ -48,6 +66,6 @@ class ModelNotFoundHandler implements \ByCedric\Allay\Contracts\Exceptions\Handl
      */
     protected function getModelName(ModelNotFoundException $error)
     {
-        return class_basename($error->getModel());
+        return $this->resources->name($error->getModel());
     }
 }

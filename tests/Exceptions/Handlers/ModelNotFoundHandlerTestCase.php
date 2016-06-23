@@ -11,8 +11,11 @@
 
 namespace ByCedric\Allay\Tests\Exceptions\Handlers;
 
+use ByCedric\Allay\Contracts\Resource\Manager as ResourceManager;
 use ByCedric\Allay\Exceptions\Handlers\ModelNotFoundHandler;
+use ByCedric\Allay\Tests\Stubs\Resource\Resource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Mockery;
 
 class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTestCase
 {
@@ -21,9 +24,13 @@ class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandle
      *
      * @return \ByCedric\Allay\Exceptions\Handlers\ModelNotFoundHandler
      */
-    protected function getInstance()
+    protected function getInstance(ResourceManager $resources = null)
     {
-        return new ModelNotFoundHandler();
+        if (!$resources) {
+            $resources = Mockery::mock(ResourceManager::class);
+        }
+
+        return new ModelNotFoundHandler($resources);
     }
 
     public function testCapableReturnsTrueWhenResourceExceptionWasProvided()
@@ -46,8 +53,13 @@ class ModelNotFoundHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandle
 
     public function testHandleReturnsResponseWithCorrectStatus()
     {
+        $resources = Mockery::mock(ResourceManager::class);
+        $resources->shouldReceive('name')
+            ->atLeast()->once()
+            ->andReturn('awesome-resource');
+
         $this->assertHandlesToResponse(
-            $this->getInstance(),
+            $this->getInstance($resources),
             new ModelNotFoundException(),
             404,
             'Handler returned a malformed response.'
