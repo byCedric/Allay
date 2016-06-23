@@ -58,6 +58,7 @@ class UpdateActionTestCase extends \ByCedric\Allay\Tests\TestCase
             $action->update($request, $manager, $resolver);
         } catch (ResourceMissingValidationException $error) {
             $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
+
             return; // stop the test, good exception was thrown
         }
 

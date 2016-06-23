@@ -41,7 +41,7 @@ interface Manager
     /**
      * Get the registered name of the resource class.
      *
-     * @param  string $class
+     * @param  string      $class
      * @return string|null
      */
     public function name($class);
