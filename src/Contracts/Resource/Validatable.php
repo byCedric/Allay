@@ -16,7 +16,7 @@ interface Validatable
     /**
      * Get an illuminate validator instance, set with all rules and attributes.
      *
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public function getValidatorInstance();
 }
