@@ -41,19 +41,21 @@ class StoreActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $manager = Mockery::mock(Manager::class);
         $resolver = Mockery::mock(Resolver::class);
         $resource = Mockery::mock(Resource::class);
+        $resourceName = 'awesome-resource';
 
         $resolver->shouldReceive('getResource')
             ->atLeast()->once()
-            ->andReturn('resource');
+            ->andReturn($resourceName);
 
         $manager->shouldReceive('make')
             ->once()
-            ->with('resource')
+            ->with($resourceName)
             ->andReturn($resource);
 
         try {
             $action->store($request, $manager, $resolver);
         } catch (ResourceMissingValidationException $error) {
+            $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
             return; // stop the test, good exception was thrown
         }
 

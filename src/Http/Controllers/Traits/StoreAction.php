@@ -35,7 +35,7 @@ trait StoreAction
         $resource = $manager->make($resolver->getResource());
 
         if (!$resource instanceof Validatable) {
-            throw new ResourceMissingValidationException($resource);
+            throw new ResourceMissingValidationException($resolver->getResource());
         }
 
         $validator = $resource->fill($request->all())

@@ -34,7 +34,7 @@ trait RelatedIndexAction
         $resource = $manager->make($resolver->getResource());
 
         if (!$resource instanceof Relatable) {
-            throw new ResourceMissingRelatableException($resource);
+            throw new ResourceMissingRelatableException($resolver->getResource());
         }
 
         $method = $resolver->getRelationMethod();

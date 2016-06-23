@@ -40,19 +40,21 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $manager = Mockery::mock(Manager::class);
         $resolver = Mockery::mock(Resolver::class);
         $resource = Mockery::mock(Resource::class);
+        $resourceName = 'awesome-resource';
 
         $resolver->shouldReceive('getResource')
             ->atLeast()->once()
-            ->andReturn('resource');
+            ->andReturn($resourceName);
 
         $manager->shouldReceive('make')
             ->atLeast()->once()
-            ->with('resource')
+            ->with($resourceName)
             ->andReturn($resource);
 
         try {
             $action->relatedShow($manager, $resolver);
         } catch (ResourceMissingRelatableException $error) {
+            $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
             return; // stop the test, good exception was thrown
         }
 
@@ -65,14 +67,15 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $manager = Mockery::mock(Manager::class);
         $resolver = Mockery::mock(Resolver::class);
         $resource = Mockery::mock(Resource::class, Relatable::class);
+        $resourceName = 'super-awesome-resource';
 
         $resolver->shouldReceive('getResource')
             ->atLeast()->once()
-            ->andReturn('resource');
+            ->andReturn($resourceName);
 
         $manager->shouldReceive('make')
             ->atLeast()->once()
-            ->with('resource')
+            ->with($resourceName)
             ->andReturn($resource);
 
         $resolver->shouldReceive('getRelationMethod')
@@ -90,6 +93,7 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         try {
             $action->relatedShow($manager, $resolver);
         } catch (ResourceRelationNotFoundException $error) {
+            $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
             return; // stop the test, good exception was thrown
         }
 
@@ -102,14 +106,15 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $manager = Mockery::mock(Manager::class);
         $resolver = Mockery::mock(Resolver::class);
         $resource = new RelatableResource();
+        $resourceName = 'other-resource';
 
         $resolver->shouldReceive('getResource')
             ->atLeast()->once()
-            ->andReturn('resource');
+            ->andReturn($resourceName);
 
         $manager->shouldReceive('make')
             ->atLeast()->once()
-            ->with('resource')
+            ->with($resourceName)
             ->andReturn($resource);
 
         $resolver->shouldReceive('getRelationMethod')
@@ -123,6 +128,7 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         try {
             $action->relatedShow($manager, $resolver);
         } catch (ResourceRelationNotFoundException $error) {
+            $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
             return; // stop the test, good exception was thrown
         }
 
@@ -138,14 +144,15 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $relatedResource = Mockery::mock(Resource::class, Readable::class);
         $relation = Mockery::mock(Relation::class);
         $builder = Mockery::mock(Builder::class);
+        $resourceName = 'working-resource';
 
         $resolver->shouldReceive('getResource')
             ->atLeast()->once()
-            ->andReturn('resource');
+            ->andReturn($resourceName);
 
         $manager->shouldReceive('make')
             ->atLeast()->once()
-            ->with('resource')
+            ->with($resourceName)
             ->andReturn($resource);
 
         $resolver->shouldReceive('getRelationMethod')
@@ -211,14 +218,15 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
         $relatedResource = Mockery::mock(Resource::class);
         $relation = Mockery::mock(Relation::class);
         $builder = Mockery::mock(Builder::class);
+        $resourceName = 'working-resource';
 
         $resolver->shouldReceive('getResource')
             ->atLeast()->once()
-            ->andReturn('resource');
+            ->andReturn($resourceName);
 
         $manager->shouldReceive('make')
             ->atLeast()->once()
-            ->with('resource')
+            ->with($resourceName)
             ->andReturn($resource);
 
         $resolver->shouldReceive('getRelationMethod')
