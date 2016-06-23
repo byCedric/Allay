@@ -26,6 +26,6 @@ class ArrayTransformer implements \ByCedric\Allay\Contracts\Transformers\Transfo
             $value = $value->toArray();
         }
 
-        return (array) $value;
+        return $value;
     }
 }

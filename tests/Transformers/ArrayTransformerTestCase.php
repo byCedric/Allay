@@ -27,28 +27,23 @@ class ArrayTransformerTestCase extends \ByCedric\Allay\Tests\TestCase
         return new ArrayTransformer();
     }
 
-    public function testBooleanIsTransformedToArray()
+    public function testNonArrayIsNotTransformedToArray()
     {
-        $this->assertArray(
-            $this->getInstance()->transform(true, 200),
-            'Boolean is not transformed to array.'
-        );
-    }
+        $scalars = [
+            'string' => 'My string',
+            'bool' => true,
+            'float' => 1.2,
+            'int' => 13,
+            'null'=> null,
+        ];
 
-    public function testNumberIsTransformedToArray()
-    {
-        $this->assertArray(
-            $this->getInstance()->transform(123, 200),
-            'Number is not transformed to array.'
-        );
-    }
-
-    public function testStringIsTransformedToArray()
-    {
-        $this->assertArray(
-            $this->getInstance()->transform('test string', 200),
-            'String is not transformed to array.'
-        );
+        foreach ($scalars as $type => $value) {
+            $this->assertInternalType(
+                $type,
+                $this->getInstance()->transform($value, 200),
+                "Scalar type {$type} was transformed."
+            );
+        }
     }
 
     public function testArrayIsTransformedToArray()
