@@ -79,4 +79,19 @@ class Manager implements \ByCedric\Allay\Contracts\Resource\Manager
 
         throw new ResourceNotFoundException($name);
     }
+
+    /**
+     * Get the registered name of the resource class.
+     *
+     * @param  string $class
+     * @return string|null
+     */
+    public function name($class)
+    {
+        foreach ($this->resources as $name => $model) {
+            if ($class == $model || is_subclass_of($class, $model)) {
+                return $name;
+            }
+        }
+    }
 }

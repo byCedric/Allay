@@ -93,4 +93,21 @@ class ManagerTestCase extends \ByCedric\Allay\Tests\TestCase
 
         $this->fail('Manager did not throw an exception.');
     }
+
+    public function testNameReturnsRegisteredResourceName()
+    {
+        $manager = $this->getInstance();
+        $manager->register('test-name', Resource::class);
+
+        $this->assertSame(
+            'test-name',
+            $manager->name(Resource::class),
+            'Name did not return the registered resource name.'
+        );
+
+        $this->assertNull(
+            $manager->name(OtherResource::class),
+            'Name did return a string for a non-registered resource.'
+        );
+    }
 }
