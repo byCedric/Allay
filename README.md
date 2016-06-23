@@ -6,8 +6,8 @@
 [![Code Climate][icon-climate]][link-climate]
 [![Total Downloads][icon-downloads]][link-downloads]
 
-`Allay` is a Laravel helper to easily create restful API's. 
-It's designed based on the idea that the resource is responsible for it's own actions. 
+`Allay` is a Laravel helper to easily create restful API's.
+It's designed based on the idea that the resource is responsible for it's own actions.
 Each of those restful actions are enabled by a boilerplate controller that works for all resources.
 Every part of `Allay` is customizable and extendable, making it usable for a lot of usecases.
 
@@ -28,7 +28,7 @@ You can add `Allay` within the require section of your composer.json.
 ```json
 {
     "require": {
-        "bycedric/allay": "~0.1"
+        "bycedric/allay": "0.2.*"
     }
 }
 ```
@@ -79,13 +79,13 @@ $app->register(ByCedric\Allay\Providers\LumenServiceProvider::class);
 ```
 
 ## Usage
-To get started with `Allay` take a look at the [wiki](../../wiki) pages.
+To get started with `Allay` take a look at the [wiki](../../wiki) (soon available) pages.
 
 ## Extensions
 `Allay` is designed to be useful in as much use cases as possible, therefore the core is unopinionated.
 From the there, you can go your own way. To help you in that, here are some extensions.
 
-- [JSON API][link-ext-json-api]
+- JSON API (soon available)
 
 ## Change log
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
@@ -122,5 +122,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-coverage]: https://coveralls.io/r/byCedric/Allay
 [link-climate]: https://codeclimate.com/github/byCedric/Allay
 [link-downloads]: https://packagist.org/packages/bycedric/allay
-
 [link-ext-json-api]: https://github.com/byCedric/Allay-json-api
