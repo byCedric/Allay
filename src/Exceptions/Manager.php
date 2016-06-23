@@ -56,7 +56,7 @@ class Manager implements \ByCedric\Allay\Contracts\Exceptions\Manager
      */
     public function capable(\Exception $error)
     {
-        return !!$this->getHandler($error);
+        return (bool) $this->getHandler($error);
     }
 
     /**

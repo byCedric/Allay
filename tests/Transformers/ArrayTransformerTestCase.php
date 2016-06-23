@@ -31,10 +31,10 @@ class ArrayTransformerTestCase extends \ByCedric\Allay\Tests\TestCase
     {
         $scalars = [
             'string' => 'My string',
-            'bool' => true,
-            'float' => 1.2,
-            'int' => 13,
-            'null'=> null,
+            'bool'   => true,
+            'float'  => 1.2,
+            'int'    => 13,
+            'null'   => null,
         ];
 
         foreach ($scalars as $type => $value) {

@@ -55,6 +55,7 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
             $action->relatedShow($manager, $resolver);
         } catch (ResourceMissingRelatableException $error) {
             $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
+
             return; // stop the test, good exception was thrown
         }
 
@@ -94,6 +95,7 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
             $action->relatedShow($manager, $resolver);
         } catch (ResourceRelationNotFoundException $error) {
             $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
+
             return; // stop the test, good exception was thrown
         }
 
@@ -129,6 +131,7 @@ class RelatedShowActionTestCase extends \ByCedric\Allay\Tests\TestCase
             $action->relatedShow($manager, $resolver);
         } catch (ResourceRelationNotFoundException $error) {
             $this->assertContains($resourceName, $error->getMessage(), 'Resource name not found in exception message.');
+
             return; // stop the test, good exception was thrown
         }
 

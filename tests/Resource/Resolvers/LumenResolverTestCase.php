@@ -40,7 +40,8 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
             ->once()
             ->andReturn([
                 'don\'t know about this',
-                function () { /* closure */ },
+                function () { /* closure */
+                },
                 ['resource' => 'test'],
             ]);
 
@@ -58,7 +59,8 @@ class LumenResolverTestCase extends \ByCedric\Allay\Tests\TestCase
             ->once()
             ->andReturn([
                 'don\'t know about this',
-                function () { /* closure */ },
+                function () { /* closure */
+                },
                 ['resource' => 'test'],
             ]);
 
