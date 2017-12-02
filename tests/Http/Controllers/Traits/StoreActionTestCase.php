@@ -17,8 +17,8 @@ use ByCedric\Allay\Contracts\Resource\Validatable;
 use ByCedric\Allay\Exceptions\ResourceMissingValidationException;
 use ByCedric\Allay\Tests\Stubs\Http\Controllers\Traits\StoreAction;
 use ByCedric\Allay\Tests\Stubs\Resource\Resource;
-use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Mockery;
 

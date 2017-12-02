@@ -15,7 +15,7 @@ use ByCedric\Allay\Contracts\Resource\Manager;
 use ByCedric\Allay\Contracts\Resource\Resolver;
 use ByCedric\Allay\Contracts\Resource\Validatable;
 use ByCedric\Allay\Exceptions\ResourceMissingValidationException;
-use Illuminate\Contracts\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 trait StoreAction
@@ -27,7 +27,7 @@ trait StoreAction
      * @param  \ByCedric\Allay\Contracts\Resource\Manager                    $manager
      * @param  \ByCedric\Allay\Contracts\Resource\Resolver                   $resolver
      * @throws \ByCedric\Allay\Exceptions\ResourceMissingValidationException
-     * @throws \Illuminate\Contracts\Validation\ValidationException
+     * @throws \Illuminate\Validation\ValidationException
      * @return mixed
      */
     public function store(Request $request, Manager $manager, Resolver $resolver)

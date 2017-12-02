@@ -14,8 +14,8 @@ Every part of `Allay` is customizable and extendable, making it usable for a lot
 ## Requirements
 `Allay` will work with the following requirements.
 
-- **PHP 5.6+**
-- **Laravel 5.1+**
+- **PHP 7.0+**
+- **Laravel 5.5+**
 
 ## Install
 
@@ -28,7 +28,7 @@ You can add `Allay` within the require section of your composer.json.
 ```json
 {
     "require": {
-        "bycedric/allay": "0.2.*"
+        "bycedric/allay": "0.3.*"
     }
 }
 ```

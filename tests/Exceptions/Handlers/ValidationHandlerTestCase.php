@@ -12,9 +12,9 @@
 namespace ByCedric\Allay\Tests\Exceptions\Handlers;
 
 use ByCedric\Allay\Exceptions\Handlers\ValidationHandler;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Support\MessageBag;
-use Illuminate\Contracts\Support\MessageProvider;
-use Illuminate\Contracts\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Mockery;
 
 class ValidationHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTestCase
@@ -31,11 +31,11 @@ class ValidationHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTe
 
     public function testCapableReturnsTrueWhenResourceExceptionWasProvided()
     {
-        $messages = Mockery::mock(MessageProvider::class);
+        $validator = Mockery::mock(Validator::class);
 
         $this->assertIsCapable(
             $this->getInstance(),
-            new ValidationException($messages),
+            new ValidationException($validator),
             'Handler was not capable of handling designated exception.'
         );
     }
@@ -51,20 +51,20 @@ class ValidationHandlerTestCase extends \ByCedric\Allay\Tests\ExceptionHandlerTe
 
     public function testHandleReturnsResponseWithCorrectStatus()
     {
+        $validator = Mockery::mock(Validator::class);
         $errors = Mockery::mock(MessageBag::class);
-        $messages = Mockery::mock(MessageProvider::class);
 
-        $errors->shouldReceive('all')
-            ->once()
-            ->andReturn(['error']);
-
-        $messages->shouldReceive('getMessageBag')
+        $validator->shouldReceive('errors')
             ->once()
             ->andReturn($errors);
 
+        $errors->shouldReceive('messages')
+            ->once()
+            ->andReturn(['error']);
+
         $this->assertHandlesToResponse(
             $this->getInstance(),
-            new ValidationException($messages),
+            new ValidationException($validator),
             422,
             'Handler returned a malformed response.'
         );

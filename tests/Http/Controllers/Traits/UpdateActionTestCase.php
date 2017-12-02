@@ -18,7 +18,7 @@ use ByCedric\Allay\Contracts\Resource\Writable;
 use ByCedric\Allay\Exceptions\ResourceMissingValidationException;
 use ByCedric\Allay\Tests\Stubs\Http\Controllers\Traits\UpdateAction;
 use ByCedric\Allay\Tests\Stubs\Resource\Resource;
-use Illuminate\Contracts\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;

@@ -16,7 +16,7 @@ use ByCedric\Allay\Contracts\Resource\Resolver;
 use ByCedric\Allay\Contracts\Resource\Validatable;
 use ByCedric\Allay\Contracts\Resource\Writable;
 use ByCedric\Allay\Exceptions\ResourceMissingValidationException;
-use Illuminate\Contracts\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 trait UpdateAction
@@ -28,7 +28,7 @@ trait UpdateAction
      * @param  \ByCedric\Allay\Contracts\Resource\Manager                    $manager
      * @param  \ByCedric\Allay\Contracts\Resource\Resolver                   $resolver
      * @throws \ByCedric\Allay\Exceptions\ResourceMissingValidationException
-     * @throws \Illuminate\Contracts\Validation\ValidationException
+     * @throws \Illuminate\Validation\ValidationException
      * @return mixed
      */
     public function update(Request $request, Manager $manager, Resolver $resolver)

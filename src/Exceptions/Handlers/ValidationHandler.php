@@ -11,7 +11,7 @@
 
 namespace ByCedric\Allay\Exceptions\Handlers;
 
-use Illuminate\Contracts\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Response;
 
 class ValidationHandler implements \ByCedric\Allay\Contracts\Exceptions\Handler
@@ -37,7 +37,7 @@ class ValidationHandler implements \ByCedric\Allay\Contracts\Exceptions\Handler
     {
         $errors = array_map(function ($error) {
             return ['detail' => $error];
-        }, $error->errors()->all());
+        }, $error->errors());
 
         return new Response($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
